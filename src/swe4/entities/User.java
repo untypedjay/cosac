@@ -1,10 +1,13 @@
 package swe4.entities;
 
+import javafx.scene.control.Button;
+
 public class User {
   private String firstName = "";
   private String lastName = "";
   private String userName = "";
   private String password = "";
+  private Button deleteButton = null;
   private boolean locked = false;
 
   public User(String fn, String ln, String un, String pwd) {
@@ -12,6 +15,7 @@ public class User {
     this.lastName = ln;
     this.userName = un;
     this.password = pwd;
+    this.deleteButton = new Button("Löschen");
   }
 
   public String getFirstName() {
@@ -44,6 +48,14 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Button getDeleteButton() {
+    return deleteButton;
+  }
+
+  public void setDeleteButton(Button deleteButton) {
+    this.deleteButton = deleteButton;
   }
 
   public boolean isLocked() {

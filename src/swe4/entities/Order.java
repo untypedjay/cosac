@@ -4,13 +4,13 @@ import java.time.LocalTime;
 
 public class Order {
   private User customer = null;
-  private String orderItem = "";
+  private Meal meal = null;
   private TimeSlot timeSlot = null;
   private LocalTime orderTime = null;
 
-  public Order(User customer, String orderItem, TimeSlot timeSlot) {
+  public Order(User customer, Meal meal, TimeSlot timeSlot) {
     this.customer = customer;
-    this.orderItem = orderItem;
+    this.meal = meal;
     this.timeSlot = timeSlot;
     this.orderTime = LocalTime.now();
   }
@@ -19,8 +19,8 @@ public class Order {
     return customer;
   }
 
-  public String getOrderItem() {
-    return orderItem;
+  public Meal getMeal() {
+    return meal;
   }
 
   public TimeSlot getTimeSlot() {

@@ -1,0 +1,12 @@
+.button {
+    -fx-text-fill: green;
+    -fx-background-color: red;
+}
+
+.label {
+    -fx-background-color: #ff00ff;
+}
+
+#grey-style {
+    -fx-background-color: gray;
+}
