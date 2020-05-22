@@ -15,16 +15,16 @@ public class Order {
     this.orderTime = LocalTime.now();
   }
 
-  public User getCustomer() {
-    return customer;
+  public String getCustomerName() {
+    return customer.getFirstName() + customer.getLastName();
   }
 
-  public Meal getMeal() {
-    return meal;
+  public String getMealName() {
+    return meal.getDescription();
   }
 
-  public TimeSlot getTimeSlot() {
-    return timeSlot;
+  public String getTimeSlot() {
+    return timeSlot.getStartTime() + " - " + timeSlot.getEndTime();
   }
 
   public LocalTime getOrderTime() {

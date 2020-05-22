@@ -1,21 +1,29 @@
 package swe4.entities;
 
+import javafx.scene.control.Button;
+
 import java.time.LocalTime;
 
-public class TimeSlot {
-  public LocalTime startTime = null;
-  public LocalTime endTime = null;
-  public int maximumCustomers = 0;
+import static java.time.LocalTime.parse;
 
-  public TimeSlot(LocalTime startTime, LocalTime endTime) {
-    this.startTime = startTime;
-    this.endTime = endTime;
-  }
+public class TimeSlot {
+  private LocalTime startTime = null;
+  private LocalTime endTime = null;
+  private int maximumCustomers = 0;
+  private Button deleteButton = null;
 
   public TimeSlot(LocalTime startTime, LocalTime endTime, int maximumCustomers) {
     this.startTime = startTime;
     this.endTime = endTime;
     this.maximumCustomers = maximumCustomers;
+    this.deleteButton = new Button("Löschen");
+  }
+
+  public TimeSlot(String startTime, String endTime, String maximumCustomers) {
+    this.startTime = parse(startTime);
+    this.endTime = parse(endTime);
+    this.maximumCustomers = Integer.parseInt(maximumCustomers);
+    this.deleteButton = new Button("Löschen");
   }
 
   public LocalTime getStartTime() {
@@ -40,5 +48,13 @@ public class TimeSlot {
 
   public void setMaximumCustomers(int maximumCustomers) {
     this.maximumCustomers = maximumCustomers;
+  }
+
+  public Button getDeleteButton() {
+    return deleteButton;
+  }
+
+  public void setDeleteButton(Button deleteButton) {
+    this.deleteButton = deleteButton;
   }
 }
