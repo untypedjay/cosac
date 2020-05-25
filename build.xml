@@ -1,0 +1,73 @@
+<project name="cosac" default="compile" basedir=".">
+
+   <!-- Specify your main class here. Omit the .class extension. -->
+   <property name="Main.class" value="swe4" />
+   <property name="program.jar" value="cosac.jar" />
+
+   <property environment="env"/>
+   <property name="src.dir" value="${basedir}/src"/>
+   <property name="target.dir" value="${basedir}/bin" />
+   <property name="local.lib.dir" value="${basedir}/lib" />
+   <property name="user.lib.dir" value="${env.SWE4_LIB}/junit" />
+   <!-- <property name="system.lib.dir" value="/usr/share/java" /> -->
+
+   <path id="classpath">
+      <fileset dir="${local.lib.dir}" erroronmissingdir="false">
+         <include name="*.jar" />
+      </fileset>
+      <fileset dir="${user.lib.dir}" erroronmissingdir="false">
+         <include name="junit*.jar"/>
+         <include name="hamcrest-core*.jar" />
+      </fileset>
+      <pathelement path="${target.dir}" />
+   </path>
+
+   <target name="all" depends="clean,compile" description="Clean build and dist directories, then compile" />
+
+   <target name="compile" description="Compile Java sources">
+      <mkdir dir="${target.dir}" />
+      <javac includeantruntime="false" srcdir="${src.dir}" destdir="${target.dir}">
+         <include name="**/*.java" />
+         <classpath refid="classpath"/>
+      </javac>
+   </target>
+
+   <target name="run" depends="compile" description="Run java application">
+      <java classname="${main.class}" fork="true">
+         <classpath refid="classpath" />
+      </java>
+   </target>
+
+   <target name="jar" depends="compile" description="Package to java archive">
+      <jar destfile="${target.dir}/${program.jar}">
+         <fileset dir="${target.dir}" includes="**/*.class" />
+         <manifest>
+            <attribute name="Main-Class" value="${main.class}" />
+         </manifest>
+      </jar>
+   </target>
+
+   <target name="runjar" depends="jar" description="Run java application in java archive">
+      <java jar="${target.dir}/${program.jar}" fork="true">
+         <classpath refid="classpath" />
+      </java>
+   </target>
+
+   <target name="clean" description="Delete old build and dist directories">
+      <delete dir="${target.dir}" />
+   </target>
+
+   <target name="run-unit-tests" depends="compile" description="Run all unit tests">
+      <junit haltonfailure="no">
+         <classpath refid="classpath"/>
+
+         <batchtest fork="yes">
+            <fileset dir="${src.dir}">
+               <include name="**/*Test.java"/>
+            </fileset>
+            <formatter type="plain" usefile="false"/>
+         </batchtest>
+      </junit>
+   </target>
+
+</project>

@@ -1,2 +1,2 @@
 # cosac
-A tool for canteens that can take orders.
+A tool for canteens to receive orders from their customers in a specific time frame.
