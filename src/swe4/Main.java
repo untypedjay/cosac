@@ -11,10 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import swe4.entities.Meal;
-import swe4.entities.Order;
-import swe4.entities.TimeSlot;
-import swe4.entities.User;
+import swe4.model.entities.Meal;
+import swe4.model.entities.Order;
+import swe4.model.entities.TimeSlot;
+import swe4.model.entities.User;
 
 import java.time.LocalTime;
 
