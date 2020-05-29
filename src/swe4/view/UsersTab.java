@@ -1,5 +1,6 @@
 package swe4.view;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import javafx.scene.layout.FlowPane;
 import swe4.model.entities.User;
 
 public class UsersTab {
-  public BorderPane usersTab() {
+  public static BorderPane construct(ObservableList<User> users) {
     BorderPane userPane = new BorderPane();
     TableView<User> userTable = new TableView<User>();
 

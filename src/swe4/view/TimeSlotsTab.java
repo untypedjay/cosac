@@ -1,5 +1,6 @@
 package swe4.view;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import javafx.scene.layout.FlowPane;
 import swe4.model.entities.TimeSlot;
 
 public class TimeSlotsTab {
-  public BorderPane timeSlotsTab() {
+  public static BorderPane construct(ObservableList<TimeSlot> timeSlots) {
     BorderPane timeSlotPane = new BorderPane();
     TableView<TimeSlot> timeSlotsTable = new TableView<>();
 

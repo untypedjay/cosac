@@ -15,39 +15,11 @@ import swe4.model.entities.Meal;
 import swe4.model.entities.Order;
 import swe4.model.entities.TimeSlot;
 import swe4.model.entities.User;
+import swe4.view.MainView;
 
 import java.time.LocalTime;
 
 public class Main extends Application {
-  TimeSlot ts1 = new TimeSlot(LocalTime.of(11, 00), LocalTime.of(11, 30), 10);
-  TimeSlot ts2 = new TimeSlot(LocalTime.of(11, 30), LocalTime.of(12, 00), 10);
-  TimeSlot ts3 = new TimeSlot(LocalTime.of(12, 00), LocalTime.of(12, 30), 10);
-  TimeSlot ts4 = new TimeSlot(LocalTime.of(12, 30), LocalTime.of(13, 00), 10);
-  ObservableList<TimeSlot> timeSlots = FXCollections.observableArrayList(ts1, ts2, ts3, ts4);
-
-  User bill = new User("Bill", "Yard", "yard", "yard123");
-  User claire = new User("Claire", "Waßer", "wasser", "wasser123");
-  User rainer = new User("Rainer", "Zufall", "zufall", "zufall123");
-  User martha = new User("Martha", "Pfahl", "pfahl", "pfahl123");
-  User marie = new User("Marie", "Huana", "huana", "huana123");
-  ObservableList<User> users = FXCollections.observableArrayList(bill, claire, rainer, martha, marie);
-
-  Meal m1 = new Meal("Italienische Köstlichkeiten", "Spaghetti Bolognese", 640);
-  Meal m2 = new Meal("Heftig Deftig", "Cordon Bleu vom Schwein mit Kartoffel und Reis", 750);
-  Meal m3 = new Meal("Vegetarische Gerichte", "Gebackene Spinatpalatschinke mit Kartoffeln ", 640);
-  Meal m4 = new Meal("Vegetarische Gerichte", "Faschierte Laibchen mit Kartoffelpüree und Gemüse ", 750);
-  Meal m5 = new Meal("Vegetarische Gerichte", "Spaghetti mit Tomatensauce ", 640);
-  ObservableList<Meal> meals = FXCollections.observableArrayList(m1, m2, m3, m4, m5);
-
-  Order o1 = new Order(claire, m5, ts3);
-  Order o2 = new Order(bill, m3, ts1);
-  Order o3 = new Order(rainer, m5, ts3);
-  Order o4 = new Order(claire, m5, ts4);
-  Order o5 = new Order(marie, m4, ts4);
-  Order o6 = new Order(bill, m2, ts2);
-  Order o7 = new Order(bill, m1, ts1);
-  Order o8 = new Order(martha, m2, ts3);
-  ObservableList<Order> orders = FXCollections.observableArrayList(o1, o2, o3, o4, o5, o6, o7, o8);
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -77,7 +49,7 @@ public class Main extends Application {
         String username = inputUsername.getText();
         String password = inputPassword.getText();
         if (username.equals("admin")) {
-          primaryStage.setScene(mainScene());
+          primaryStage.setScene(MainView.construct());
         } else {
           alert();
         }

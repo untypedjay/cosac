@@ -1,5 +1,6 @@
 package swe4.view;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -7,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import swe4.model.entities.Order;
 
 public class OrderTab {
-  public BorderPane orderTab() {
+  public static BorderPane construct(ObservableList<Order> orders) {
     BorderPane orderPane = new BorderPane();
     TableView<Order> orderTable = new TableView<>();
 
