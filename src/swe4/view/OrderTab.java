@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import swe4.model.entities.Order;
 
 public class OrderTab {
-  public static BorderPane construct(ObservableList<Order> orders) {
+  public static BorderPane create(ObservableList<Order> orders) {
     BorderPane orderPane = new BorderPane();
     TableView<Order> orderTable = new TableView<>();
 

@@ -13,7 +13,7 @@ import javafx.scene.layout.FlowPane;
 import swe4.model.entities.Meal;
 
 public class MenuTab {
-  public static BorderPane construct(ObservableList<Meal> meals) {
+  public static BorderPane create(ObservableList<Meal> meals) {
     BorderPane menuPane = new BorderPane();
     TableView<Meal> menuTable = new TableView<Meal>();
 

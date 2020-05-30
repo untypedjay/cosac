@@ -16,7 +16,7 @@ public class Order {
   }
 
   public String getCustomerName() {
-    return customer.getFirstName() + customer.getLastName();
+    return customer.getFirstName() + " " + customer.getLastName();
   }
 
   public String getMealName() {

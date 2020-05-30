@@ -8,16 +8,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import swe4.model.entities.Meal;
-import swe4.model.entities.Order;
-import swe4.model.entities.TimeSlot;
-import swe4.model.entities.User;
 import swe4.view.MainView;
-
-import java.time.LocalTime;
 
 public class Main extends Application {
 
@@ -49,7 +42,7 @@ public class Main extends Application {
         String username = inputUsername.getText();
         String password = inputPassword.getText();
         if (username.equals("admin")) {
-          primaryStage.setScene(MainView.construct());
+          primaryStage.setScene(MainView.create());
         } else {
           alert();
         }

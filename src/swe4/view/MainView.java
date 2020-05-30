@@ -43,16 +43,16 @@ public class MainView {
     private static Order o8 = new Order(martha, m2, ts3);
     private static ObservableList<Order> orders = FXCollections.observableArrayList(o1, o2, o3, o4, o5, o6, o7, o8);
 
-  public static Scene construct() {
+  public static Scene create() {
       TabPane mainMenu = new TabPane();
       Tab tabOrders = new Tab("Bestellungen");
       Tab tabMenu = new Tab("Speisekarte");
       Tab tabTimeSlots = new Tab("Zeitbereiche");
       Tab tabUsers = new Tab("Benutzerverwaltung");
-      tabOrders.setContent(OrderTab.construct(orders));
-      tabMenu.setContent(MenuTab.construct(meals));
+      tabOrders.setContent(OrderTab.create(orders));
+      tabMenu.setContent(MenuTab.create(meals));
       tabTimeSlots.setContent(TimeSlotsTab.construct(timeSlots));
-      tabUsers.setContent(UsersTab.construct(users));
+      tabUsers.setContent(UsersTab.create(users));
       mainMenu.getTabs().addAll(tabOrders, tabMenu, tabTimeSlots, tabUsers);
       mainMenu.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
       return new Scene(mainMenu, 800, 400);

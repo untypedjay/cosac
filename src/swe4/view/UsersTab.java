@@ -13,7 +13,7 @@ import javafx.scene.layout.FlowPane;
 import swe4.model.entities.User;
 
 public class UsersTab {
-  public static BorderPane construct(ObservableList<User> users) {
+  public static BorderPane create(ObservableList<User> users) {
     BorderPane userPane = new BorderPane();
     TableView<User> userTable = new TableView<User>();
 
@@ -59,7 +59,7 @@ public class UsersTab {
     Button addButton = new Button("Hinzufügen");
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
-      public void handle(ActionEvent actionEvent) {
+      public void handle(ActionEvent event) {
         users.add(new User(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText()));
       }
     });

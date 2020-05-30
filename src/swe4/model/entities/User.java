@@ -1,5 +1,7 @@
 package swe4.model.entities;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class User {
@@ -16,6 +18,12 @@ public class User {
     this.userName = un;
     this.password = pwd;
     this.deleteButton = new Button("Löschen");
+    this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        System.out.println(getFirstName());
+      }
+    });
   }
 
   public String getFirstName() {
