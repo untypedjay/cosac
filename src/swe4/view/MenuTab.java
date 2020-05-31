@@ -53,6 +53,9 @@ public class MenuTab {
       @Override
       public void handle(ActionEvent actionEvent) {
         dishes.add(new Dish(name.getText(), section.getText(), price.getText()));
+        name.setText("");
+        section.setText("");
+        price.setText("");
       }
     });
     addMealContainer.getChildren().add(addButton);

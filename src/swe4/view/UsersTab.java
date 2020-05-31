@@ -65,6 +65,10 @@ public class UsersTab {
       @Override
       public void handle(ActionEvent event) {
         users.add(new User(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText()));
+        inputFirstName.setText("");
+        inputLastName.setText("");
+        inputUserName.setText("");
+        inputPassword.setText("");
       }
     });
     addUserContainer.getChildren().add(addButton);

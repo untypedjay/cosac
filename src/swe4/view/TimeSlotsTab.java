@@ -53,6 +53,9 @@ public class TimeSlotsTab {
       @Override
       public void handle(ActionEvent actionEvent) {
         timeSlots.add(new TimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText()));
+        inputStartTime.setText("");
+        inputEndTime.setText("");
+        inputMaxCustomers.setText("");
       }
     });
     addTimeSlotContainer.getChildren().add(addButton);
