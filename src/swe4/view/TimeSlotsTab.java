@@ -3,10 +3,7 @@ package swe4.view;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -37,25 +34,38 @@ public class TimeSlotsTab {
     FlowPane addTimeSlotContainer = new FlowPane(4, 4);
 
     TextField inputStartTime = new TextField();
-    inputStartTime.setPromptText("Start");
+    inputStartTime.setPromptText("Startzeit (z.B. 10:30)");
     addTimeSlotContainer.getChildren().add(inputStartTime);
 
     TextField inputEndTime = new TextField();
-    inputEndTime.setPromptText("Ende");
+    inputEndTime.setPromptText("Endzeit (z.B. 11:00)");
     addTimeSlotContainer.getChildren().add(inputEndTime);
 
     TextField inputMaxCustomers = new TextField();
-    inputMaxCustomers.setPromptText("Maximale Kundenanzahl");
+    inputMaxCustomers.setPromptText("Maximale Kundenanzahl (z.B. 10)");
     addTimeSlotContainer.getChildren().add(inputMaxCustomers);
 
     Button addButton = new Button("Hinzufügen");
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        timeSlots.add(new TimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText()));
-        inputStartTime.setText("");
-        inputEndTime.setText("");
-        inputMaxCustomers.setText("");
+        if (inputStartTime.getText().isEmpty() || inputEndTime.getText().isEmpty()
+                                               || inputMaxCustomers.getText().isEmpty()) {
+          emptyAlert();
+        } else if (!inputStartTime.getText().matches("([0-1][0-9]|2[0-3]):[0-5][0-9]") ||
+                   !inputEndTime.getText().matches("([0-1][0-9]|2[0-3]):[0-5][0-9]")) {
+          invalidTimeAlert();
+          inputStartTime.setText("");
+          inputEndTime.setText("");
+        } else if (!inputMaxCustomers.getText().matches("[0-9]*")) {
+          invalidNumberAlert();
+          inputMaxCustomers.setText("");
+        } else {
+          timeSlots.add(new TimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText()));
+          inputStartTime.setText("");
+          inputEndTime.setText("");
+          inputMaxCustomers.setText("");
+        }
       }
     });
     addTimeSlotContainer.getChildren().add(addButton);
@@ -64,5 +74,29 @@ public class TimeSlotsTab {
     timeSlotPane.setBottom(addTimeSlotContainer);
 
     return timeSlotPane;
+  }
+
+  private static void emptyAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Hinzufügen fehlgeschlagen!");
+    alert.setHeaderText("Unvollständige Eingabe!");
+    alert.setContentText("Bitte füllen Sie alle Felder aus.");
+    alert.showAndWait();
+  }
+
+  private static void invalidTimeAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Hinzufügen fehlgeschlagen!");
+    alert.setHeaderText("Falsches Zeitformat!");
+    alert.setContentText("Bitte verwenden Sie das gängige Uhrzeitformat.");
+    alert.showAndWait();
+  }
+
+  private static void invalidNumberAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Hinzufügen fehlgeschlagen!");
+    alert.setHeaderText("Falsches Zahlenformat!");
+    alert.setContentText("Bitte verwenden Sie ein ganze positive Zahl");
+    alert.showAndWait();
   }
 }
