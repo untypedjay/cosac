@@ -1,67 +1,20 @@
 package swe4;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.NodeOrientation;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import swe4.view.LoginView;
 import swe4.view.MainView;
 
 public class Client extends Application {
-
-  @Override
-  public void start(Stage primaryStage) throws Exception {
-    BorderPane loginContainer = new BorderPane();
-    GridPane loginForm = new GridPane();
-    ColumnConstraints col0 = new ColumnConstraints();
-    col0.setHgrow(Priority.NEVER);
-    ColumnConstraints col1 = new ColumnConstraints();
-    col1.setHgrow(Priority.ALWAYS);
-    loginForm.getColumnConstraints().addAll(col0, col1);
-    loginForm.setHgap(4);
-    loginForm.setVgap(4);
-    TextField inputUsername = new TextField();
-    PasswordField inputPassword = new PasswordField();
-    loginForm.add(new Label("Bei CosaC anmelden"), 0, 0, 2, 1);
-    loginForm.add(new Label("Benutzername:"), 0, 1);
-    loginForm.add(inputUsername, 1, 1);
-    loginForm.add(new Label("Passwort:"), 0, 2);
-    loginForm.add(inputPassword, 1, 2);
-    loginContainer.setCenter(loginForm);
-    FlowPane loginButtonContainer = new FlowPane(4, 4);
-    loginButtonContainer.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-    Button loginButton = new Button("Einloggen");
-    loginButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent actionEvent) {
-        String username = inputUsername.getText();
-        String password = inputPassword.getText();
-        if (username.equals("admin")) {
-          primaryStage.setScene(MainView.create());
-        } else {
-          alert();
-        }
-      }
-    });
-    loginButtonContainer.getChildren().add(loginButton);
-    loginContainer.setBottom(loginButtonContainer);
-    primaryStage.setTitle("CosaC");
-    primaryStage.setScene(new Scene(loginContainer, 400, 200));
-    primaryStage.show();
-  }
-
-  public void alert() {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Einloggen fehlgeschlagen!");
-    alert.setHeaderText("Benutzername oder Passwort inkorrekt!");
-    alert.setContentText("Bitte versuchen Sie es noch einmal.");
-    alert.showAndWait();
-  }
-
   public static void main(String[] args) {
     launch(args);
+  }
+
+  @Override
+  public void start(Stage primaryStage) {
+    primaryStage.setTitle("CosaC");
+    LoginView.create(primaryStage);
+    primaryStage.show();
+    System.out.println();
   }
 }
