@@ -37,7 +37,7 @@ public class LoginView {
         String username = inputUsername.getText();
         String password = inputPassword.getText();
         if (username.equals("admin") && password.equals("admin")) {
-          stage.setScene(MainView.create());
+          stage.setScene(MainView.create(stage));
         } else {
           alert();
         }
