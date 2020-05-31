@@ -38,6 +38,10 @@ public class UsersTab {
     lockButtonCol.setCellValueFactory(new PropertyValueFactory<>("lockButton"));
     userTable.getColumns().add(lockButtonCol);
 
+    TableColumn<User, String> roleButtonCol = new TableColumn<>("");
+    roleButtonCol.setCellValueFactory(new PropertyValueFactory<>("roleButton"));
+    userTable.getColumns().add(roleButtonCol);
+
     TableColumn<User, String> deleteButtonCol = new TableColumn<User, String>("");
     deleteButtonCol.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
     userTable.getColumns().add(deleteButtonCol);

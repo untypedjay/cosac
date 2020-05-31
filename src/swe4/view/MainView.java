@@ -11,6 +11,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import swe4.model.DataModel;
+import swe4.util.DateUtil;
+
+import java.util.Date;
 
 public class MainView {
 
@@ -23,7 +26,7 @@ public class MainView {
 
   private static HBox mainMenuButtons(Stage stage) {
     HBox mainMenuButtons = new HBox();
-    Label lastSavedLabel = new Label("Zuletzt gespeichert um 11:34 Uhr");
+    Label lastSavedLabel = new Label("Zuletzt gespeichert um " + DateUtil.formatTime(new Date()) + " Uhr");
     Button saveButton = new Button("Speichern");
     Button openButton = new Button("Öffnen");
     Button logoutButton = new Button("Ausloggen");

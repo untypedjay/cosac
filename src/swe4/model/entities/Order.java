@@ -1,5 +1,7 @@
 package swe4.model.entities;
 
+import swe4.util.DateUtil;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +33,6 @@ public class Order {
   }
 
   public String getOrderTimeString() {
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-    return timeFormat.format(orderTime);
+    return DateUtil.formatTime(orderTime);
   }
 }

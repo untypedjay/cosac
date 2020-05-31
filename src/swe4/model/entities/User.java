@@ -11,7 +11,9 @@ public class User {
   private String userName = "";
   private String password = "";
   private boolean locked = false;
+  private boolean admin = false;
   private ToggleButton lockButton = null;
+  private ToggleButton roleButton = null;
   private Button deleteButton = null;
 
   public User(String fn, String ln, String un, String pwd) {
@@ -25,11 +27,25 @@ public class User {
       @Override
       public void handle(ActionEvent actionEvent) {
         if (lockButton.isSelected()) {
-          locked = true;
+          setLocked(true);
           lockButton.setText("Gesperrt");
         } else {
-          locked = false;
+          setLocked(false);
           lockButton.setText("Sperren");
+        }
+      }
+    });
+
+    this.roleButton = new ToggleButton("Kunde");
+    this.roleButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        if (roleButton.isSelected()) {
+          setAdmin(true);
+          roleButton.setText("Administrator");
+        } else {
+          setAdmin(false);
+          roleButton.setText("Kunde");
         }
       }
     });
@@ -63,7 +79,27 @@ public class User {
     return lockButton;
   }
 
+  public ToggleButton getRoleButton() {
+    return roleButton;
+  }
+
   public Button getDeleteButton() {
     return deleteButton;
+  }
+
+  public boolean isLocked() {
+    return locked;
+  }
+
+  public void setLocked(boolean locked) {
+    this.locked = locked;
+  }
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
   }
 }
