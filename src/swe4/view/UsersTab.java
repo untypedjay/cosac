@@ -15,28 +15,32 @@ import swe4.model.entities.User;
 public class UsersTab {
   public static BorderPane create(ObservableList<User> users) {
     BorderPane userPane = new BorderPane();
-    TableView<User> userTable = new TableView<User>();
+    TableView<User> userTable = new TableView<>();
 
     userTable.setItems(users);
     TableColumn<User, String> firstNameCol = new TableColumn<User, String>("Vorname");
-    firstNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+    firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     userTable.getColumns().add(firstNameCol);
 
     TableColumn<User, String> lastNameCol = new TableColumn<User, String>("Nachname");
-    lastNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+    lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     userTable.getColumns().add(lastNameCol);
 
     TableColumn<User, String> userNameCol = new TableColumn<User, String>("Benutzername");
-    userNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("userName"));
+    userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
     userTable.getColumns().add(userNameCol);
 
     TableColumn<User, String> passwordCol = new TableColumn<User, String>("Passwort");
-    passwordCol.setCellValueFactory(new PropertyValueFactory<User, String>("password"));
+    passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
     userTable.getColumns().add(passwordCol);
 
-    TableColumn<User, String> buttonCol = new TableColumn<User, String>("");
-    buttonCol.setCellValueFactory(new PropertyValueFactory<User, String>("deleteButton"));
-    userTable.getColumns().add(buttonCol);
+    TableColumn<User, String> lockButtonCol = new TableColumn<>("");
+    lockButtonCol.setCellValueFactory(new PropertyValueFactory<>("lockButton"));
+    userTable.getColumns().add(lockButtonCol);
+
+    TableColumn<User, String> deleteButtonCol = new TableColumn<User, String>("");
+    deleteButtonCol.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+    userTable.getColumns().add(deleteButtonCol);
 
     FlowPane addUserContainer = new FlowPane(4, 4);
 
