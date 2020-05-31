@@ -36,13 +36,13 @@ public class MenuTab {
 
     FlowPane addMealContainer = new FlowPane(4, 4);
 
-    TextField mealType = new TextField();
-    mealType.setPromptText("Bereich");
-    addMealContainer.getChildren().add(mealType);
+    TextField section = new TextField();
+    section.setPromptText("Bereich");
+    addMealContainer.getChildren().add(section);
 
-    TextField description = new TextField();
-    description.setPromptText("Bezeichnung");
-    addMealContainer.getChildren().add(description);
+    TextField name = new TextField();
+    name.setPromptText("Bezeichnung");
+    addMealContainer.getChildren().add(name);
 
     TextField price = new TextField();
     price.setPromptText("Preis");
@@ -52,7 +52,7 @@ public class MenuTab {
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        dishes.add(new Dish(mealType.getText(), description.getText(), price.getText()));
+        dishes.add(new Dish(name.getText(), section.getText(), price.getText()));
       }
     });
     addMealContainer.getChildren().add(addButton);

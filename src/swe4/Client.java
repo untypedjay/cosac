@@ -1,8 +1,6 @@
 package swe4;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
@@ -12,7 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import swe4.view.MainView;
 
-public class Main extends Application {
+public class Client extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {

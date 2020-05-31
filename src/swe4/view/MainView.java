@@ -1,17 +1,9 @@
 package swe4.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import swe4.model.DataModel;
-import swe4.model.entities.Dish;
-import swe4.model.entities.Order;
-import swe4.model.entities.TimeSlot;
-import swe4.model.entities.User;
-
-import java.time.LocalTime;
 
 public class MainView {
 
