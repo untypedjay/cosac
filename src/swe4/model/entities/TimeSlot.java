@@ -30,31 +30,15 @@ public class TimeSlot {
     return startTime;
   }
 
-  public void setStartTime(LocalTime startTime) {
-    this.startTime = startTime;
-  }
-
   public LocalTime getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(LocalTime endTime) {
-    this.endTime = endTime;
-  }
-
-  public int getMaximumCustomers() {
+  public long getMaximumCustomers() {
     return maximumCustomers;
-  }
-
-  public void setMaximumCustomers(int maximumCustomers) {
-    this.maximumCustomers = maximumCustomers;
   }
 
   public Button getDeleteButton() {
     return deleteButton;
-  }
-
-  public void setDeleteButton(Button deleteButton) {
-    this.deleteButton = deleteButton;
   }
 }

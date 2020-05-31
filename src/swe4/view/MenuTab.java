@@ -10,27 +10,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import swe4.model.entities.Meal;
+import swe4.model.entities.Dish;
 
 public class MenuTab {
-  public static BorderPane create(ObservableList<Meal> meals) {
+  public static BorderPane create(ObservableList<Dish> dishes) {
     BorderPane menuPane = new BorderPane();
-    TableView<Meal> menuTable = new TableView<Meal>();
+    TableView<Dish> menuTable = new TableView<Dish>();
 
-    menuTable.setItems(meals);
-    TableColumn<Meal, String> mealTypeCol = new TableColumn<>("Bereich");
-    mealTypeCol.setCellValueFactory(new PropertyValueFactory<>("mealType"));
+    menuTable.setItems(dishes);
+    TableColumn<Dish, String> mealTypeCol = new TableColumn<>("Bereich");
+    mealTypeCol.setCellValueFactory(new PropertyValueFactory<>("section"));
     menuTable.getColumns().add(mealTypeCol);
 
-    TableColumn<Meal, String> descriptionCol = new TableColumn<>("Bezeichnung");
-    descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+    TableColumn<Dish, String> descriptionCol = new TableColumn<>("Bezeichnung");
+    descriptionCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     menuTable.getColumns().add(descriptionCol);
 
-    TableColumn<Meal, Long> priceCol = new TableColumn<>("Preis");
-    priceCol.setCellValueFactory(new PropertyValueFactory<>("priceInCents"));
+    TableColumn<Dish, Long> priceCol = new TableColumn<>("Preis");
+    priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     menuTable.getColumns().add(priceCol);
 
-    TableColumn<Meal, String> buttonCol = new TableColumn<>("");
+    TableColumn<Dish, String> buttonCol = new TableColumn<>("");
     buttonCol.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
     menuTable.getColumns().add(buttonCol);
 
@@ -52,7 +52,7 @@ public class MenuTab {
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        meals.add(new Meal(mealType.getText(), description.getText(), price.getText()));
+        dishes.add(new Dish(mealType.getText(), description.getText(), price.getText()));
       }
     });
     addMealContainer.getChildren().add(addButton);

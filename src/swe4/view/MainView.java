@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import swe4.model.entities.Meal;
+import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
 import swe4.model.entities.TimeSlot;
 import swe4.model.entities.User;
@@ -26,12 +26,12 @@ public class MainView {
     private static User marie = new User("Marie", "Huana", "huana", "huana123");
     private static ObservableList<User> users = FXCollections.observableArrayList(bill, claire, rainer, martha, marie);
 
-    private static Meal m1 = new Meal("Italienische Köstlichkeiten", "Spaghetti Bolognese", 640);
-    private static Meal m2 = new Meal("Heftig Deftig", "Cordon Bleu vom Schwein mit Kartoffel und Reis", 750);
-    private static Meal m3 = new Meal("Vegetarische Gerichte", "Gebackene Spinatpalatschinke mit Kartoffeln ", 640);
-    private static Meal m4 = new Meal("Vegetarische Gerichte", "Faschierte Laibchen mit Kartoffelpüree und Gemüse ", 750);
-    private static Meal m5 = new Meal("Vegetarische Gerichte", "Spaghetti mit Tomatensauce ", 640);
-    private static ObservableList<Meal> meals = FXCollections.observableArrayList(m1, m2, m3, m4, m5);
+    private static Dish m1 = new Dish("Spaghetti Bolognese","Italienische Köstlichkeiten",  640);
+    private static Dish m2 = new Dish("Cordon Bleu vom Schwein mit Kartoffel und Reis","Heftig Deftig",  750);
+    private static Dish m3 = new Dish("Gebackene Spinatpalatschinke mit Kartoffeln ","Vegetarische Gerichte",  640);
+    private static Dish m4 = new Dish("Faschierte Laibchen mit Kartoffelpüree und Gemüse ","Vegetarische Gerichte",  750);
+    private static Dish m5 = new Dish("Spaghetti mit Tomatensauce ","Vegetarische Gerichte",  640);
+    private static ObservableList<Dish> dishes = FXCollections.observableArrayList(m1, m2, m3, m4, m5);
 
     private static Order o1 = new Order(claire, m5, ts3);
     private static Order o2 = new Order(bill, m3, ts1);
@@ -50,7 +50,7 @@ public class MainView {
       Tab tabTimeSlots = new Tab("Zeitbereiche");
       Tab tabUsers = new Tab("Benutzerverwaltung");
       tabOrders.setContent(OrderTab.create(orders));
-      tabMenu.setContent(MenuTab.create(meals));
+      tabMenu.setContent(MenuTab.create(dishes));
       tabTimeSlots.setContent(TimeSlotsTab.construct(timeSlots));
       tabUsers.setContent(UsersTab.create(users));
       mainMenu.getTabs().addAll(tabOrders, tabMenu, tabTimeSlots, tabUsers);

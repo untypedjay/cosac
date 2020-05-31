@@ -18,15 +18,15 @@ public class OrderTab {
     orderTable.getColumns().add(customerCol);
 
     TableColumn<Order, String> orderCol = new TableColumn<>("Bestellung");
-    orderCol.setCellValueFactory(new PropertyValueFactory<>("mealName"));
+    orderCol.setCellValueFactory(new PropertyValueFactory<>("dishName"));
     orderTable.getColumns().add(orderCol);
 
     TableColumn<Order, String> timeFrameCol = new TableColumn<>("Zeitfenster");
-    timeFrameCol.setCellValueFactory(new PropertyValueFactory<>("timeSlot"));
+    timeFrameCol.setCellValueFactory(new PropertyValueFactory<>("timeSlotString"));
     orderTable.getColumns().add(timeFrameCol);
 
     TableColumn<Order, String> orderTimeCol = new TableColumn<>("Bestellzeit");
-    orderTimeCol.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
+    orderTimeCol.setCellValueFactory(new PropertyValueFactory<>("orderTimeString"));
     orderTable.getColumns().add(orderTimeCol);
 
     orderPane.setCenter(orderTable);
