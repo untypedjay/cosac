@@ -6,6 +6,7 @@ import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
 import swe4.model.entities.TimeSlot;
 import swe4.model.entities.User;
+import swe4.util.PasswordUtil;
 
 import java.time.LocalTime;
 
@@ -24,11 +25,11 @@ public class DataModel {
     );
 
     users.setAll(
-      new User("Bill", "Yard", "yard", "yard123"),
-      new User("Claire", "Waßer", "wasser", "wasser123"),
-      new User("Rainer", "Zufall", "zufall", "zufall123"),
-      new User("Martha", "Pfahl", "pfahl", "pfahl123"),
-      new User("Marie", "Huana", "huana", "huana123")
+      new User("Bill", "Yard", "yard", PasswordUtil.generateHash("yard123")),
+      new User("Claire", "Waßer", "wasser", PasswordUtil.generateHash("wasser123")),
+      new User("Rainer", "Zufall", "zufall", PasswordUtil.generateHash("zufall123")),
+      new User("Martha", "Pfahl", "pfahl", PasswordUtil.generateHash("pfahl123")),
+      new User("Marie", "Huana", "huana", PasswordUtil.generateHash("huana123"))
     );
 
     dishes.setAll(
@@ -54,6 +55,10 @@ public class DataModel {
         users.remove(user);
       }
     }
+  }
+
+  public static void addUser(String firstName, String lastName, String userName, String password) {
+    users.add(new User(firstName, lastName, userName, PasswordUtil.generateHash(password)));
   }
 
   public static void deleteDish(String dishName) {

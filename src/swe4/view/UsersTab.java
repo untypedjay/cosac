@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import swe4.model.DataModel;
 import swe4.model.entities.User;
 
 public class UsersTab {
@@ -69,7 +70,7 @@ public class UsersTab {
           || inputUserName.getText().isEmpty() || inputPassword.getText().isEmpty()) {
           emptyAlert();
         } else {
-          users.add(new User(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText()));
+          DataModel.addUser(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText());
           inputFirstName.setText("");
           inputLastName.setText("");
           inputUserName.setText("");
