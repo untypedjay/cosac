@@ -56,6 +56,22 @@ public class DataModel {
     }
   }
 
+  public static void deleteDish(String dishName) {
+    for (Dish dish : dishes) {
+      if (dish.getName().equals(dishName)) {
+        dishes.remove(dish);
+      }
+    }
+  }
+
+  public static void deleteTimeSlot(LocalTime startTime, LocalTime endTime) {
+    for (TimeSlot timeSlot : timeSlots) {
+      if (timeSlot.getStartTime().equals(startTime) && timeSlot.getEndTime().equals(endTime)) {
+        timeSlots.remove(timeSlot);
+      }
+    }
+  }
+
   public static ObservableList<TimeSlot> getTimeSlots() {
     return timeSlots;
   }

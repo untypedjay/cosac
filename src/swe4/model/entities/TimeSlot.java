@@ -1,12 +1,15 @@
 package swe4.model.entities;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import swe4.model.DataModel;
 
 import java.time.LocalTime;
 
 import static java.time.LocalTime.parse;
 
-public class TimeSlot {
+public class TimeSlot implements EventHandler {
   private LocalTime startTime = null;
   private LocalTime endTime = null;
   private int maximumCustomers = 0;
@@ -17,6 +20,7 @@ public class TimeSlot {
     this.endTime = endTime;
     this.maximumCustomers = maximumCustomers;
     this.deleteButton = new Button("Löschen");
+    this.deleteButton.setOnAction(this::handle);
   }
 
   public TimeSlot(String startTime, String endTime, String maximumCustomers) {
@@ -24,6 +28,7 @@ public class TimeSlot {
     this.endTime = parse(endTime);
     this.maximumCustomers = Integer.parseInt(maximumCustomers);
     this.deleteButton = new Button("Löschen");
+    this.deleteButton.setOnAction(this::handle);
   }
 
   public LocalTime getStartTime() {
@@ -40,5 +45,10 @@ public class TimeSlot {
 
   public Button getDeleteButton() {
     return deleteButton;
+  }
+
+  @Override
+  public void handle(Event event) {
+    DataModel.deleteTimeSlot(getStartTime(), getEndTime());
   }
 }
