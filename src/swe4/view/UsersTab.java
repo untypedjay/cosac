@@ -3,10 +3,7 @@ package swe4.view;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -68,11 +65,16 @@ public class UsersTab {
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        users.add(new User(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText()));
-        inputFirstName.setText("");
-        inputLastName.setText("");
-        inputUserName.setText("");
-        inputPassword.setText("");
+        if (inputFirstName.getText().isEmpty() || inputLastName.getText().isEmpty()
+          || inputUserName.getText().isEmpty() || inputPassword.getText().isEmpty()) {
+          emptyAlert();
+        } else {
+          users.add(new User(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText()));
+          inputFirstName.setText("");
+          inputLastName.setText("");
+          inputUserName.setText("");
+          inputPassword.setText("");
+        }
       }
     });
     addUserContainer.getChildren().add(addButton);
@@ -81,5 +83,13 @@ public class UsersTab {
     userPane.setBottom(addUserContainer);
 
     return userPane;
+  }
+
+  private static void emptyAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Hinzufügen fehlgeschlagen!");
+    alert.setHeaderText("Unvollständige Eingabe!");
+    alert.setContentText("Bitte füllen Sie alle Felder aus.");
+    alert.showAndWait();
   }
 }
