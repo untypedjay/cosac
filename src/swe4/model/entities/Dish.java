@@ -1,6 +1,9 @@
 package swe4.model.entities;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import swe4.model.DataModel;
 import swe4.util.PriceUtil;
 
 public class Dish {
@@ -9,18 +12,17 @@ public class Dish {
   private long priceInCents = 0;
   private Button deleteButton = null;
 
-  public Dish(String name, String section, String priceInCents) {
-    this.name = name;
-    this.section = section;
-    this.priceInCents = Long.parseLong(priceInCents);
-    this.deleteButton = new Button("Löschen");
-  }
-
   public Dish(String name, String section, long priceInCents) {
     this.name = name;
     this.section = section;
     this.priceInCents = priceInCents;
     this.deleteButton = new Button("Löschen");
+    this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        DataModel.deleteDish(getName());
+      }
+    });
   }
 
   public String getName() {
