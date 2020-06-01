@@ -10,16 +10,12 @@ import swe4.model.entities.User;
 import java.time.LocalTime;
 
 public class DataModel {
-  private final ObservableList<TimeSlot> timeSlots = FXCollections.observableArrayList();
-  private final ObservableList<User> users = FXCollections.observableArrayList();
-  private final ObservableList<Dish> dishes = FXCollections.observableArrayList();
-  private final ObservableList<Order> orders = FXCollections.observableArrayList();
+  private static final ObservableList<TimeSlot> timeSlots = FXCollections.observableArrayList();
+  private static final ObservableList<User> users = FXCollections.observableArrayList();
+  private static final ObservableList<Dish> dishes = FXCollections.observableArrayList();
+  private static final ObservableList<Order> orders = FXCollections.observableArrayList();
 
-  public DataModel() {
-    loadMockData();
-  }
-
-  public void loadMockData() {
+  public static void loadMockData() {
     timeSlots.setAll(
       new TimeSlot(LocalTime.of(11, 00), LocalTime.of(11, 30), 10),
       new TimeSlot(LocalTime.of(11, 30), LocalTime.of(12, 00), 10),
@@ -52,19 +48,27 @@ public class DataModel {
     );
   }
 
-  public ObservableList<TimeSlot> getTimeSlots() {
+  public static void deleteUser(String userName) {
+    for (User user : users) {
+      if (user.getUserName().equals(userName)) {
+        users.remove(user);
+      }
+    }
+  }
+
+  public static ObservableList<TimeSlot> getTimeSlots() {
     return timeSlots;
   }
 
-  public ObservableList<User> getUsers() {
+  public static ObservableList<User> getUsers() {
     return users;
   }
 
-  public ObservableList<Dish> getDishes() {
+  public static ObservableList<Dish> getDishes() {
     return dishes;
   }
 
-  public ObservableList<Order> getOrders() {
+  public static ObservableList<Order> getOrders() {
     return orders;
   }
 }

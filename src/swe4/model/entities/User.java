@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import swe4.model.DataModel;
 
 public class User {
   private String firstName = "";
@@ -54,7 +55,7 @@ public class User {
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        System.out.println(getFirstName());
+        DataModel.deleteUser(getUserName());
       }
     });
   }

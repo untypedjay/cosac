@@ -15,7 +15,9 @@ import swe4.util.DateUtil;
 
 import java.util.Date;
 
-public class MainView {
+import static swe4.model.DataModel.*;
+
+public class AdminView {
 
   public static Scene create(Stage stage) {
     BorderPane mainLayout = new BorderPane();
@@ -42,21 +44,21 @@ public class MainView {
   }
 
   private static TabPane mainMenuTabs() {
-    DataModel data = new DataModel();
+    DataModel.loadMockData();
 
     TabPane mainMenuTabs = new TabPane();
 
     Tab tabOrders = new Tab("Bestellungen");
-    tabOrders.setContent(OrderTab.create(data.getOrders()));
+    tabOrders.setContent(OrderTab.create(getOrders()));
 
     Tab tabMenu = new Tab("Speisekarte");
-    tabMenu.setContent(MenuTab.create(data.getDishes()));
+    tabMenu.setContent(MenuTab.create(getDishes()));
 
     Tab tabTimeSlots = new Tab("Zeitbereiche");
-    tabTimeSlots.setContent(TimeSlotsTab.construct(data.getTimeSlots()));
+    tabTimeSlots.setContent(TimeSlotsTab.construct(getTimeSlots()));
 
     Tab tabUsers = new Tab("Benutzerverwaltung");
-    tabUsers.setContent(UsersTab.create(data.getUsers()));
+    tabUsers.setContent(UsersTab.create(getUsers()));
 
     mainMenuTabs.getTabs().addAll(tabOrders, tabMenu, tabTimeSlots, tabUsers);
     mainMenuTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
