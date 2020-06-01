@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import swe4.model.DataModel;
 
 public class LoginView {
 
@@ -36,7 +37,7 @@ public class LoginView {
       public void handle(ActionEvent actionEvent) {
         String username = inputUsername.getText();
         String password = inputPassword.getText();
-        if (username.equals("admin") && password.equals("admin")) {
+        if (DataModel.isValidUser(username, password)) {
           stage.setScene(AdminView.create(stage));
         } else {
           inputUsername.setText("");

@@ -26,6 +26,7 @@ public class DataModel {
 
     users.setAll(
       new User("Bill", "Yard", "yard", PasswordUtil.generateHash("yard123")),
+      new User("admin", "admin", "admin", PasswordUtil.generateHash("admin")),
       new User("Claire", "Waßer", "wasser", PasswordUtil.generateHash("wasser123")),
       new User("Rainer", "Zufall", "zufall", PasswordUtil.generateHash("zufall123")),
       new User("Martha", "Pfahl", "pfahl", PasswordUtil.generateHash("pfahl123")),
@@ -59,6 +60,16 @@ public class DataModel {
 
   public static void addUser(String firstName, String lastName, String userName, String password) {
     users.add(new User(firstName, lastName, userName, PasswordUtil.generateHash(password)));
+  }
+
+  public static boolean isValidUser(String userName, String password) {
+    System.out.println(users.size());
+    for (User user : users) {
+      if (user.getUserName().equals(userName) && PasswordUtil.isValid(password, user.getPasswordHash())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static void deleteDish(String dishName) {

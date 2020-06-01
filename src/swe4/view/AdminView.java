@@ -44,7 +44,6 @@ public class AdminView {
   }
 
   private static TabPane mainMenuTabs() {
-    DataModel.loadMockData();
 
     TabPane mainMenuTabs = new TabPane();
 

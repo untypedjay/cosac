@@ -28,10 +28,6 @@ public class UsersTab {
     userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
     userTable.getColumns().add(userNameCol);
 
-    TableColumn<User, String> passwordCol = new TableColumn<User, String>("Passwort");
-    passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-    userTable.getColumns().add(passwordCol);
-
     TableColumn<User, String> lockButtonCol = new TableColumn<>("");
     lockButtonCol.setCellValueFactory(new PropertyValueFactory<>("lockButton"));
     userTable.getColumns().add(lockButtonCol);

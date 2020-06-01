@@ -10,7 +10,7 @@ public class User {
   private String firstName = "";
   private String lastName = "";
   private String userName = "";
-  private String password = "";
+  private String passwordHash = "";
   private boolean locked = false;
   private boolean admin = false;
   private ToggleButton lockButton = null;
@@ -21,7 +21,7 @@ public class User {
     this.firstName = fn;
     this.lastName = ln;
     this.userName = un;
-    this.password = pwd;
+    this.passwordHash = pwd;
 
     this.lockButton = new ToggleButton("Sperren");
     this.lockButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -72,8 +72,8 @@ public class User {
     return userName;
   }
 
-  public String getPassword() {
-    return password;
+  public String getPasswordHash() {
+    return passwordHash;
   }
 
   public ToggleButton getLockButton() {
