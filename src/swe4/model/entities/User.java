@@ -5,17 +5,20 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import swe4.model.DataModel;
+import swe4.model.UserRepository;
 
-public class User {
+import java.io.*;
+
+public class User implements Serializable {
   private String firstName = "";
   private String lastName = "";
   private String userName = "";
   private String passwordHash = "";
   private boolean locked = false;
   private boolean admin = false;
-  private ToggleButton lockButton = null;
-  private ToggleButton roleButton = null;
-  private Button deleteButton = null;
+  private transient ToggleButton lockButton = null;
+  private transient ToggleButton roleButton = null;
+  private transient Button deleteButton = null;
 
   public User(String fn, String ln, String un, String pwd) {
     this.firstName = fn;
@@ -55,7 +58,7 @@ public class User {
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        DataModel.deleteUser(getUserName());
+        UserRepository.deleteUser(getUserName());
       }
     });
   }
@@ -102,5 +105,30 @@ public class User {
 
   public void setAdmin(boolean admin) {
     this.admin = admin;
+  }
+
+//  @Override
+//  public void validateObject() throws InvalidObjectException {
+//    if (address == null) {
+//      address = new Address(1234, "<unknown>", "<unknown>");
+//    }
+//  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(firstName);
+    sb.append(" ");
+    sb.append(lastName);
+    sb.append(", ");
+    sb.append(userName);
+    sb.append(", ");
+    sb.append(passwordHash);
+    return sb.toString();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+//    in.registerValidation((ObjectInputValidation) this, 0);
+    in.defaultReadObject();
   }
 }

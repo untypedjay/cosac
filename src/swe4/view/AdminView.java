@@ -10,9 +10,10 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import swe4.model.DataModel;
+import swe4.model.UserRepository;
 import swe4.util.DateUtil;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static swe4.model.DataModel.*;
@@ -30,6 +31,17 @@ public class AdminView {
     HBox mainMenuButtons = new HBox();
     Label lastSavedLabel = new Label("Zuletzt gespeichert um " + DateUtil.formatTime(new Date()) + " Uhr");
     Button saveButton = new Button("Speichern");
+    saveButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        try {
+          UserRepository.saveUsers(5002, "localhost");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        lastSavedLabel.setText("Zuletzt gespeichert um " + DateUtil.formatTime(new Date()) + " Uhr");
+      }
+    });
     Button openButton = new Button("Öffnen");
     Button logoutButton = new Button("Ausloggen");
     logoutButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -57,7 +69,7 @@ public class AdminView {
     tabTimeSlots.setContent(TimeSlotsTab.construct(getTimeSlots()));
 
     Tab tabUsers = new Tab("Benutzerverwaltung");
-    tabUsers.setContent(UsersTab.create(getUsers()));
+    tabUsers.setContent(UsersTab.create(UserRepository.getUsers()));
 
     mainMenuTabs.getTabs().addAll(tabOrders, tabMenu, tabTimeSlots, tabUsers);
     mainMenuTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

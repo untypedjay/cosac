@@ -3,6 +3,7 @@ package swe4;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import swe4.model.DataModel;
+import swe4.model.UserRepository;
 import swe4.view.LoginView;
 
 public class Client extends Application {
@@ -12,6 +13,7 @@ public class Client extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    UserRepository.loadMockUsers();
     DataModel.loadMockData();
     primaryStage.setTitle("CosaC");
     LoginView.create(primaryStage);
