@@ -35,14 +35,14 @@ public class AdminView {
       @Override
       public void handle(ActionEvent actionEvent) {
         try {
-          UserRepository.saveUsers(5002, "localhost");
+          UserRepository.saveUsers();
         } catch (IOException e) {
           e.printStackTrace();
         }
         lastSavedLabel.setText("Zuletzt gespeichert um " + DateUtil.formatTime(new Date()) + " Uhr");
       }
     });
-    Button openButton = new Button("Öffnen");
+    Button updateButton = new Button("Aktualisieren");
     Button logoutButton = new Button("Ausloggen");
     logoutButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
@@ -51,7 +51,7 @@ public class AdminView {
         }
       }
     );
-    mainMenuButtons.getChildren().addAll(lastSavedLabel, saveButton, openButton, logoutButton);
+    mainMenuButtons.getChildren().addAll(lastSavedLabel, saveButton, updateButton, logoutButton);
     return mainMenuButtons;
   }
 

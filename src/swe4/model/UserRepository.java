@@ -6,8 +6,10 @@ import swe4.model.entities.User;
 import swe4.util.PasswordUtil;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class UserRepository {
@@ -49,15 +51,39 @@ public class UserRepository {
     return false;
   }
 
-  public static void saveUsers(int port, String host) throws IOException {
+  public static void saveUsers() throws IOException {
     Object[] userData = new Object[users.size()];
     for (int i = 0; i < userData.length; ++i) {
       userData[i] = users.get(i);
     }
-    try (Socket socket = new Socket(host, port);
+    try (Socket socket = new Socket("localhost", 5004);
          ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
       out.writeObject(userData);
-      System.out.println("client, sent: " + userData);
+      System.out.println("client, sent users to server: " + userData);
+    }
+  }
+
+  private static void receiveUsers() throws IOException, ClassNotFoundException {
+    System.out.println("client, waiting for user data from server...");
+    try (ServerSocket server = new ServerSocket(5003);
+         Socket socket = server.accept();
+         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      Object[] userObjectArray = (Object[]) in.readObject();
+      users.clear();
+      for (int i = 0; i < userObjectArray.length; ++i) {
+        users.add((User) userObjectArray[i]);
+        System.out.println(userObjectArray[i]);
+      }
+    }
+    System.out.println("client, received users: " + users);
+  }
+
+  public static void loadUsers() throws IOException, ClassNotFoundException {
+    try (Socket socket = new Socket("localhost", 5004);
+         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
+      out.writeObject("users");
+      System.out.println("client, requested users from server");
+      receiveUsers();
     }
   }
 }

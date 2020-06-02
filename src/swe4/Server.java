@@ -16,40 +16,51 @@ public class Server extends Application {
     Application.launch();
   }
 
-  // receiving data from client and store it in an object; called by the server and never stops
-  private static void storeUsers(int port, String fileName) throws IOException, ClassNotFoundException {
-    System.out.println("server, waiting for client ...");
-
-    while (true) {
-      Object[] users = null;
-      try (ServerSocket server = new ServerSocket(port);
-           Socket socket = server.accept();
-           ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-        users = (Object[]) in.readObject();
-        System.out.println("server, received: " + users); // users are now in servers RAM
-      }
-      try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream(fileName))) { // try-with-resources
-        out.writeObject(users);
-      } catch (IOException x) {
-        x.printStackTrace();
-      }
+  private static void storeUsers(Object[] users) {
+    try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream("users.ser"))) { // try-with-resources
+      out.writeObject(users);
+    } catch (IOException x) {
+      x.printStackTrace();
     }
+    System.out.println("server, written user data to users.ser");
   }
 
-  private static ObservableList<User> activateUsers(String fileName) {
-    ObservableList<User> users = null;
+  private static void sendUsers() throws IOException {
+    Object[] users = null;
 
-    try (ObjectInput in = new ObjectInputStream(new FileInputStream(fileName))) {
-      users = (ObservableList<User>) in.readObject();
+    try (ObjectInput in = new ObjectInputStream(new FileInputStream("users.ser"))) {
+      users = (Object[]) in.readObject();
     } catch (ClassNotFoundException | IOException x) {
       x.printStackTrace();
     }
-    return users;
+    try (Socket socket = new Socket("localhost", 5003);
+         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
+      out.writeObject(users);
+      System.out.println("server, sent users to client: " + users);
+    }
+  }
+
+  private static void processRequest() throws IOException, ClassNotFoundException {
+    System.out.println("server, waiting for requests...");
+    while (true) {
+      try (ServerSocket server = new ServerSocket(5004);
+           Socket socket = server.accept();
+           ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+           Object data = in.readObject();
+        if (data.equals("users")) {
+          System.out.println("server, received request for user data");
+          sendUsers();
+        } else {
+          System.out.println("server, received user data: " + data);
+          storeUsers((Object[]) data);
+        }
+      }
+    }
   }
 
   @Override
   public void start(Stage stage) throws Exception {
-    storeUsers(5002, "users.ser");
+    processRequest();
   }
 }
 

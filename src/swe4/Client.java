@@ -6,14 +6,29 @@ import swe4.model.DataModel;
 import swe4.model.UserRepository;
 import swe4.view.LoginView;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 public class Client extends Application {
   public static void main(String[] args) {
+    try {
+      TimeUnit.SECONDS.sleep(2); // to start client and server simultaneously
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     launch(args);
   }
 
   @Override
   public void start(Stage primaryStage) {
-    UserRepository.loadMockUsers();
+    //UserRepository.loadMockUsers();
+    try {
+      UserRepository.loadUsers();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
     DataModel.loadMockData();
     primaryStage.setTitle("CosaC");
     LoginView.create(primaryStage);

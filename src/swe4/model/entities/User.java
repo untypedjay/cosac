@@ -124,6 +124,11 @@ public class User implements Serializable {
     sb.append(userName);
     sb.append(", ");
     sb.append(passwordHash);
+    sb.append(" (");
+    sb.append(locked);
+    sb.append(" ,");
+    sb.append(admin);
+    sb.append(")");
     return sb.toString();
   }
 
