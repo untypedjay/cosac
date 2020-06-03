@@ -16,7 +16,9 @@ import swe4.util.DateUtil;
 import java.io.IOException;
 import java.util.Date;
 
-import static swe4.model.DataModel.*;
+import static swe4.model.DishRepository.getDishes;
+import static swe4.model.OrderRepository.getOrders;
+import static swe4.model.TimeSlotRepository.getTimeSlots;
 
 public class AdminView {
 

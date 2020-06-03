@@ -3,11 +3,11 @@ package swe4.model.entities;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import swe4.model.DataModel;
 
 import java.time.LocalTime;
 
 import static java.time.LocalTime.parse;
+import static swe4.model.TimeSlotRepository.deleteTimeSlot;
 
 public class TimeSlot implements EventHandler {
   private LocalTime startTime = null;
@@ -49,6 +49,6 @@ public class TimeSlot implements EventHandler {
 
   @Override
   public void handle(Event event) {
-    DataModel.deleteTimeSlot(getStartTime(), getEndTime());
+    deleteTimeSlot(getStartTime(), getEndTime());
   }
 }

@@ -3,8 +3,9 @@ package swe4.model.entities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import swe4.model.DataModel;
 import swe4.util.PriceUtil;
+
+import static swe4.model.DishRepository.deleteDish;
 
 public class Dish {
   private String name = "";
@@ -20,7 +21,7 @@ public class Dish {
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        DataModel.deleteDish(getName());
+        deleteDish(getName());
       }
     });
   }

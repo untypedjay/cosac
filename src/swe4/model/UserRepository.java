@@ -17,12 +17,12 @@ public class UserRepository {
 
   public static void loadMockUsers() {
     users.setAll(
-      new User("Bill", "Yard", "yard", PasswordUtil.generateHash("yard123")),
-      new User("admin", "admin", "admin", PasswordUtil.generateHash("admin")),
-      new User("Claire", "Waßer", "wasser", PasswordUtil.generateHash("wasser123")),
-      new User("Rainer", "Zufall", "zufall", PasswordUtil.generateHash("zufall123")),
-      new User("Martha", "Pfahl", "pfahl", PasswordUtil.generateHash("pfahl123")),
-      new User("Marie", "Huana", "huana", PasswordUtil.generateHash("huana123"))
+      new User("Bill", "Yard", "yard", PasswordUtil.generateHash("yard123"), false, false),
+      new User("admin", "admin", "admin", PasswordUtil.generateHash("admin"), false, false),
+      new User("Claire", "Waßer", "wasser", PasswordUtil.generateHash("wasser123"), false, false),
+      new User("Rainer", "Zufall", "zufall", PasswordUtil.generateHash("zufall123"), false, false),
+      new User("Martha", "Pfahl", "pfahl", PasswordUtil.generateHash("pfahl123"), false, false),
+      new User("Marie", "Huana", "huana", PasswordUtil.generateHash("huana123"), false, false)
     );
   }
 
@@ -39,7 +39,7 @@ public class UserRepository {
   }
 
   public static void addUser(String firstName, String lastName, String userName, String password) {
-    users.add(new User(firstName, lastName, userName, PasswordUtil.generateHash(password)));
+    users.add(new User(firstName, lastName, userName, PasswordUtil.generateHash(password), false, false));
   }
 
   public static boolean isValidUser(String userName, String password) {
@@ -71,7 +71,8 @@ public class UserRepository {
       Object[] userObjectArray = (Object[]) in.readObject();
       users.clear();
       for (int i = 0; i < userObjectArray.length; ++i) {
-        users.add((User) userObjectArray[i]);
+        User user = (User) userObjectArray[i];
+        users.add(new User(user.getFirstName(), user.getLastName(), user.getUserName(), user.getPasswordHash(), user.isLocked(), user.isAdmin()));
         System.out.println(userObjectArray[i]);
       }
     }

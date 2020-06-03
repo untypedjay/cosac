@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import swe4.model.DataModel;
 import swe4.model.UserRepository;
 
 import java.io.*;
@@ -20,13 +19,21 @@ public class User implements Serializable {
   private transient ToggleButton roleButton = null;
   private transient Button deleteButton = null;
 
-  public User(String fn, String ln, String un, String pwd) {
+  public User(String fn, String ln, String un, String pwd, boolean locked, boolean admin) {
     this.firstName = fn;
     this.lastName = ln;
     this.userName = un;
     this.passwordHash = pwd;
+    this.locked = locked;
+    this.admin = admin;
 
-    this.lockButton = new ToggleButton("Sperren");
+    this.lockButton = new ToggleButton();
+    this.lockButton.setSelected(locked);
+    if (locked) {
+      lockButton.setText("Gesperrt");
+    } else {
+      lockButton.setText("Sperren");
+    }
     this.lockButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -41,12 +48,18 @@ public class User implements Serializable {
     });
 
     this.roleButton = new ToggleButton("Kunde");
+    this.roleButton.setSelected(admin);
+    if (admin) {
+      roleButton.setText("Admin");
+    } else {
+      roleButton.setText("Kunde");
+    }
     this.roleButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
         if (roleButton.isSelected()) {
           setAdmin(true);
-          roleButton.setText("Administrator");
+          roleButton.setText("Admin");
         } else {
           setAdmin(false);
           roleButton.setText("Kunde");

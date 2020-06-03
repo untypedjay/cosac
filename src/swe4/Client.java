@@ -2,8 +2,11 @@ package swe4;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import swe4.model.DataModel;
+import swe4.model.DishRepository;
+import swe4.model.OrderRepository;
+import swe4.model.TimeSlotRepository;
 import swe4.model.UserRepository;
+import swe4.model.entities.TimeSlot;
 import swe4.view.LoginView;
 
 import java.io.IOException;
@@ -12,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Client extends Application {
   public static void main(String[] args) {
     try {
-      TimeUnit.SECONDS.sleep(2); // to start client and server simultaneously
+      TimeUnit.SECONDS.sleep(3); // to start client and server simultaneously
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -21,7 +24,7 @@ public class Client extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    //UserRepository.loadMockUsers();
+//    UserRepository.loadMockUsers();
     try {
       UserRepository.loadUsers();
     } catch (IOException e) {
@@ -29,7 +32,9 @@ public class Client extends Application {
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
-    DataModel.loadMockData();
+    DishRepository.loadMockDishes();
+    TimeSlotRepository.loadMockTimeSlots();
+    OrderRepository.loadMockOrders();
     primaryStage.setTitle("CosaC");
     LoginView.create(primaryStage);
     primaryStage.show();
