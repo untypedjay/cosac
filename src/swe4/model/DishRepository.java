@@ -5,6 +5,11 @@ import javafx.collections.ObservableList;
 import swe4.model.entities.Dish;
 import swe4.model.entities.TimeSlot;
 
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 public class DishRepository {
   private static final ObservableList<Dish> dishes = FXCollections.observableArrayList();
 

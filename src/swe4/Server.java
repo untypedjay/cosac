@@ -39,14 +39,11 @@ public class Server {
           System.out.println("server, received request for timeSlot data");
           sendData(DataType.TIMESLOT);
         } else if (((Object[]) data)[0].toString().startsWith("user")) {
-          System.out.println("server, received user data: " + data);
+          System.out.println("server, received data");
           storeDataInFile((Object[]) data, DataType.USER);
-        } else if (((Object[]) data)[0].toString().startsWith("dish")) {
-          storeDataInFile((Object[]) data, DataType.DISH);
-        } else if (((Object[]) data)[0].toString().startsWith("order")) {
-          storeDataInFile((Object[]) data, DataType.ORDER);
-        } else if (((Object[]) data)[0].toString().startsWith("timeSlot")) {
-          storeDataInFile((Object[]) data, DataType.TIMESLOT);
+          storeDataInFile((Object[]) in.readObject(), DataType.DISH);
+          storeDataInFile((Object[]) in.readObject(), DataType.ORDER);
+          storeDataInFile((Object[]) in.readObject(), DataType.TIMESLOT);
         } else {
           System.out.println("SERVER ERROR: unknown request");
         }

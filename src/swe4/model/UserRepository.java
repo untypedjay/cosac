@@ -51,18 +51,6 @@ public class UserRepository {
     return false;
   }
 
-  public static void saveUsers() throws IOException {
-    Object[] userData = new Object[users.size()];
-    for (int i = 0; i < userData.length; ++i) {
-      userData[i] = users.get(i);
-    }
-    try (Socket socket = new Socket("localhost", 5004);
-         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
-      out.writeObject(userData);
-      System.out.println("client, sent users to server: " + userData);
-    }
-  }
-
   public static void receiveUsers() throws IOException, ClassNotFoundException {
     System.out.println("client, waiting for user data from server...");
     try (ServerSocket server = new ServerSocket(5003);

@@ -3,10 +3,7 @@ package swe4;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import swe4.model.*;
-import swe4.model.entities.TimeSlot;
 import swe4.view.LoginView;
-
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class Client extends Application {
@@ -24,8 +21,6 @@ public class Client extends Application {
 //    UserRepository.loadMockUsers();
     try {
       Repository.loadData();
-    } catch (IOException e) {
-      e.printStackTrace();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }

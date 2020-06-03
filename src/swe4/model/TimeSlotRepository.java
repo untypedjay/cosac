@@ -4,6 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.entities.TimeSlot;
 
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.time.LocalTime;
 
 public class TimeSlotRepository {

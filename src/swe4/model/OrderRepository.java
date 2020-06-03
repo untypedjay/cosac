@@ -4,6 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.entities.Order;
 
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 public class OrderRepository {
 
   private static final ObservableList<Order> orders = FXCollections.observableArrayList();

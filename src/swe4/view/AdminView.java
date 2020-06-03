@@ -18,6 +18,7 @@ import java.util.Date;
 
 import static swe4.model.DishRepository.getDishes;
 import static swe4.model.OrderRepository.getOrders;
+import static swe4.model.Repository.saveData;
 import static swe4.model.TimeSlotRepository.getTimeSlots;
 
 public class AdminView {
@@ -37,7 +38,7 @@ public class AdminView {
       @Override
       public void handle(ActionEvent actionEvent) {
         try {
-          UserRepository.saveUsers();
+          saveData();
         } catch (IOException e) {
           e.printStackTrace();
         }
