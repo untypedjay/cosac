@@ -3,7 +3,6 @@ package swe4.model.entities;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -42,7 +41,7 @@ public class TimeSlot implements EventHandler, Serializable {
     return endTime;
   }
 
-  public long getMaximumCustomers() {
+  public int getMaximumCustomers() {
     return maximumCustomers;
   }
 

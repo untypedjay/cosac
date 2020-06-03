@@ -4,14 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.entities.Order;
 
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import static swe4.model.DishRepository.getDish;
+import static swe4.model.UserRepository.getUser;
 
 public class OrderRepository {
 
-  private static final ObservableList<Order> orders = FXCollections.observableArrayList();
+  private static ObservableList<Order> orders = FXCollections.observableArrayList();
 
   public static void loadMockOrders() {
     orders.setAll(
@@ -25,5 +23,14 @@ public class OrderRepository {
 
   public static ObservableList<Order> getOrders() {
     return orders;
+  }
+
+  public static void receiveOrders(Object[] orderObjectArray) {
+    orders.clear();
+    for (int i = 0; i < orderObjectArray.length; ++i) {
+      Order order = (Order) orderObjectArray[i];
+      orders.add(new Order(getUser(order.getCustomerUserName()), getDish(order.getDishName()), order.getTimeSlot()));
+    }
+    System.out.println("client, received orders: " + orders);
   }
 }

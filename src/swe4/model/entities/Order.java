@@ -1,7 +1,6 @@
 package swe4.model.entities;
 
 import swe4.util.DateUtil;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -24,8 +23,16 @@ public class Order implements Serializable {
     return customer.getFirstName() + " " + customer.getLastName();
   }
 
+  public String getCustomerUserName() {
+    return customer.getUserName();
+  }
+
   public String getDishName() {
     return dish.getName();
+  }
+
+  public TimeSlot getTimeSlot() {
+    return timeSlot;
   }
 
   public String getTimeSlotString() {

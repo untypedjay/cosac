@@ -4,11 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import swe4.util.PriceUtil;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-
 import static swe4.model.DishRepository.deleteDish;
 
 public class Dish implements Serializable {
@@ -32,6 +30,10 @@ public class Dish implements Serializable {
 
   public String getName() {
     return name;
+  }
+
+  public long getPriceInCents() {
+    return priceInCents;
   }
 
   public String getPrice() {

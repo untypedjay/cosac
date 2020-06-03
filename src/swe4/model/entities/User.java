@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import swe4.model.UserRepository;
-
 import java.io.*;
 
 public class User implements Serializable {

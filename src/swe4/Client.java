@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import swe4.model.*;
 import swe4.view.LoginView;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class Client extends Application {
@@ -19,14 +21,16 @@ public class Client extends Application {
   @Override
   public void start(Stage primaryStage) {
 //    UserRepository.loadMockUsers();
+//    DishRepository.loadMockDishes();
+//    TimeSlotRepository.loadMockTimeSlots();
+//    OrderRepository.loadMockOrders();
     try {
       Repository.loadData();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    DishRepository.loadMockDishes();
-    TimeSlotRepository.loadMockTimeSlots();
-    OrderRepository.loadMockOrders();
     primaryStage.setTitle("CosaC");
     LoginView.create(primaryStage);
     primaryStage.show();

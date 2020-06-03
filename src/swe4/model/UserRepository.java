@@ -5,15 +5,8 @@ import javafx.collections.ObservableList;
 import swe4.model.entities.User;
 import swe4.util.PasswordUtil;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 public class UserRepository {
-  private static final ObservableList<User> users = FXCollections.observableArrayList();
+  private static ObservableList<User> users = FXCollections.observableArrayList();
 
   public static void loadMockUsers() {
     users.setAll(
@@ -28,6 +21,15 @@ public class UserRepository {
 
   public static ObservableList<User> getUsers() {
     return users;
+  }
+
+  public static User getUser(String userName) {
+    for (User user : users) {
+      if (user.getUserName().equals(userName)) {
+        return user;
+      }
+    }
+    return null;
   }
 
   public static void deleteUser(String userName) {
@@ -51,19 +53,12 @@ public class UserRepository {
     return false;
   }
 
-  public static void receiveUsers() throws IOException, ClassNotFoundException {
-    System.out.println("client, waiting for user data from server...");
-    try (ServerSocket server = new ServerSocket(5003);
-         Socket socket = server.accept();
-         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-      Object[] userObjectArray = (Object[]) in.readObject();
+  public static void receiveUsers(Object[] userObjectArray) {
       users.clear();
       for (int i = 0; i < userObjectArray.length; ++i) {
         User user = (User) userObjectArray[i];
         users.add(new User(user.getFirstName(), user.getLastName(), user.getUserName(), user.getPasswordHash(), user.isLocked(), user.isAdmin()));
-        System.out.println(userObjectArray[i]);
       }
-    }
     System.out.println("client, received users: " + users);
   }
 }

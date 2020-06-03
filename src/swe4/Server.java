@@ -26,18 +26,16 @@ public class Server {
            Socket socket = server.accept();
            ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
         Object data = in.readObject();
-        if (data.equals("users")) {
-          System.out.println("server, received request for user data");
-          sendData(DataType.USER);
-        } else if (data.equals("dishes")) {
-          System.out.println("server, received request for dish data");
-          sendData(DataType.DISH);
-        } else if (data.equals("orders")) {
-          System.out.println("server, received request for order data");
-          sendData(DataType.ORDER);
-        } else if (data.equals("timeSlots")) {
-          System.out.println("server, received request for timeSlot data");
-          sendData(DataType.TIMESLOT);
+        if (data.equals("data")) {
+          System.out.println("server, received request for data");
+          try (Socket sender = new Socket("localhost", 5003);
+               ObjectOutput out = new ObjectOutputStream(sender.getOutputStream())) {
+            out.writeObject(retrieveData(DataType.USER));
+            out.writeObject(retrieveData(DataType.DISH));
+            out.writeObject(retrieveData(DataType.ORDER));
+            out.writeObject(retrieveData(DataType.TIMESLOT));
+          }
+          System.out.println("server, sent data");
         } else if (((Object[]) data)[0].toString().startsWith("user")) {
           System.out.println("server, received data");
           storeDataInFile((Object[]) data, DataType.USER);
@@ -61,20 +59,16 @@ public class Server {
     System.out.println("server, written data to file");
   }
 
-  private static void sendData(DataType dataType) throws IOException {
-    Object[] data = null;
+  private static Object retrieveData(DataType dataType) {
+    Object data = null;
     String fileName = determineFileName(dataType);
 
     try (ObjectInput in = new ObjectInputStream(new FileInputStream(fileName))) {
-      data = (Object[]) in.readObject();
+      data = in.readObject();
     } catch (ClassNotFoundException | IOException x) {
       x.printStackTrace();
     }
-    try (Socket socket = new Socket("localhost", 5003);
-         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
-      out.writeObject(data);
-      System.out.println("server, sent data to client: " + data);
-    }
+    return data;
   }
 
   private static String determineFileName(DataType dataType) {

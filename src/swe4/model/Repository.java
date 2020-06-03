@@ -1,27 +1,36 @@
 package swe4.model;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
-
 import static swe4.model.DishRepository.getDishes;
+import static swe4.model.DishRepository.receiveDishes;
 import static swe4.model.OrderRepository.getOrders;
+import static swe4.model.OrderRepository.receiveOrders;
 import static swe4.model.TimeSlotRepository.getTimeSlots;
+import static swe4.model.TimeSlotRepository.receiveTimeSlots;
 import static swe4.model.UserRepository.getUsers;
 import static swe4.model.UserRepository.receiveUsers;
 
 public class Repository {
-  public static void loadData() throws ClassNotFoundException {
-    try {
-      try (Socket socket = new Socket("localhost", 5004);
-           ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
-        out.writeObject("users");
-        System.out.println("client, requested users from server");
-        receiveUsers();
-      }
+  public static void loadData() throws ClassNotFoundException, IOException {
+    try (Socket socket = new Socket("localhost", 5004);
+         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
+      out.writeObject("data");
     } catch (IOException e) {
       e.printStackTrace();
+    }
+
+    try (ServerSocket server = new ServerSocket(5003);
+         Socket socket = server.accept();
+         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      receiveUsers((Object[]) in.readObject());
+      receiveDishes((Object[]) in.readObject());
+      receiveOrders((Object[]) in.readObject());
+      receiveTimeSlots((Object[]) in.readObject());
     }
   }
 
