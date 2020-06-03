@@ -63,7 +63,7 @@ public class UserRepository {
     }
   }
 
-  private static void receiveUsers() throws IOException, ClassNotFoundException {
+  public static void receiveUsers() throws IOException, ClassNotFoundException {
     System.out.println("client, waiting for user data from server...");
     try (ServerSocket server = new ServerSocket(5003);
          Socket socket = server.accept();
@@ -77,14 +77,5 @@ public class UserRepository {
       }
     }
     System.out.println("client, received users: " + users);
-  }
-
-  public static void loadUsers() throws IOException, ClassNotFoundException {
-    try (Socket socket = new Socket("localhost", 5004);
-         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
-      out.writeObject("users");
-      System.out.println("client, requested users from server");
-      receiveUsers();
-    }
   }
 }

@@ -120,16 +120,10 @@ public class User implements Serializable {
     this.admin = admin;
   }
 
-//  @Override
-//  public void validateObject() throws InvalidObjectException {
-//    if (address == null) {
-//      address = new Address(1234, "<unknown>", "<unknown>");
-//    }
-//  }
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
+    sb.append("user: ");
     sb.append(firstName);
     sb.append(" ");
     sb.append(lastName);
@@ -146,7 +140,6 @@ public class User implements Serializable {
   }
 
   private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-//    in.registerValidation((ObjectInputValidation) this, 0);
     in.defaultReadObject();
   }
 }

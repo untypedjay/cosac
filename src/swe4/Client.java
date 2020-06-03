@@ -2,10 +2,7 @@ package swe4;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import swe4.model.DishRepository;
-import swe4.model.OrderRepository;
-import swe4.model.TimeSlotRepository;
-import swe4.model.UserRepository;
+import swe4.model.*;
 import swe4.model.entities.TimeSlot;
 import swe4.view.LoginView;
 
@@ -26,7 +23,7 @@ public class Client extends Application {
   public void start(Stage primaryStage) {
 //    UserRepository.loadMockUsers();
     try {
-      UserRepository.loadUsers();
+      Repository.loadData();
     } catch (IOException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {

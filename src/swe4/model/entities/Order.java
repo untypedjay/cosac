@@ -2,12 +2,12 @@ package swe4.model.entities;
 
 import swe4.util.DateUtil;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Order {
+public class Order implements Serializable {
   private User customer = null;
   private Dish dish = null;
   private TimeSlot timeSlot = null;
@@ -34,5 +34,22 @@ public class Order {
 
   public String getOrderTimeString() {
     return DateUtil.formatTime(orderTime);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("order: ");
+    sb.append(getCustomerName());
+    sb.append(", ");
+    sb.append(getDishName());
+    sb.append(", ");
+    sb.append(getTimeSlotString());
+    sb.append(", ");
+    return sb.toString();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
   }
 }

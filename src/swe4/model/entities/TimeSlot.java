@@ -4,16 +4,19 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import static java.time.LocalTime.parse;
 import static swe4.model.TimeSlotRepository.deleteTimeSlot;
 
-public class TimeSlot implements EventHandler {
+public class TimeSlot implements EventHandler, Serializable {
   private LocalTime startTime = null;
   private LocalTime endTime = null;
   private int maximumCustomers = 0;
-  private Button deleteButton = null;
+  private transient Button deleteButton = null;
 
   public TimeSlot(LocalTime startTime, LocalTime endTime, int maximumCustomers) {
     this.startTime = startTime;
@@ -50,5 +53,22 @@ public class TimeSlot implements EventHandler {
   @Override
   public void handle(Event event) {
     deleteTimeSlot(getStartTime(), getEndTime());
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("timeSlot: ");
+    sb.append(getStartTime());
+    sb.append(" - ");
+    sb.append(getEndTime());
+    sb.append(" (");
+    sb.append(getMaximumCustomers());
+    sb.append(")");
+    return sb.toString();
+  }
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
   }
 }

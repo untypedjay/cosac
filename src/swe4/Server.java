@@ -1,42 +1,21 @@
 package swe4;
 
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.stage.Stage;
-import swe4.model.entities.User;
-import swe4.util.PasswordUtil;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server extends Application {
+public class Server {
+  private enum DataType {
+    DISH, ORDER, TIMESLOT, USER
+  }
+
   public static void main(String[] args) {
-    Application.launch();
-  }
-
-  private static void storeUsers(Object[] users) {
-    try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream("users.ser"))) { // try-with-resources
-      out.writeObject(users);
-    } catch (IOException x) {
-      x.printStackTrace();
-    }
-    System.out.println("server, written user data to users.ser");
-  }
-
-  private static void sendUsers() throws IOException {
-    Object[] users = null;
-
-    try (ObjectInput in = new ObjectInputStream(new FileInputStream("users.ser"))) {
-      users = (Object[]) in.readObject();
-    } catch (ClassNotFoundException | IOException x) {
-      x.printStackTrace();
-    }
-    try (Socket socket = new Socket("localhost", 5003);
-         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
-      out.writeObject(users);
-      System.out.println("server, sent users to client: " + users);
+    try {
+      processRequest();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
     }
   }
 
@@ -46,21 +25,70 @@ public class Server extends Application {
       try (ServerSocket server = new ServerSocket(5004);
            Socket socket = server.accept();
            ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-           Object data = in.readObject();
+        Object data = in.readObject();
         if (data.equals("users")) {
           System.out.println("server, received request for user data");
-          sendUsers();
-        } else {
+          sendData(DataType.USER);
+        } else if (data.equals("dishes")) {
+          System.out.println("server, received request for dish data");
+          sendData(DataType.DISH);
+        } else if (data.equals("orders")) {
+          System.out.println("server, received request for order data");
+          sendData(DataType.ORDER);
+        } else if (data.equals("timeSlots")) {
+          System.out.println("server, received request for timeSlot data");
+          sendData(DataType.TIMESLOT);
+        } else if (((Object[]) data)[0].toString().startsWith("user")) {
           System.out.println("server, received user data: " + data);
-          storeUsers((Object[]) data);
+          storeDataInFile((Object[]) data, DataType.USER);
+        } else if (((Object[]) data)[0].toString().startsWith("dish")) {
+          storeDataInFile((Object[]) data, DataType.DISH);
+        } else if (((Object[]) data)[0].toString().startsWith("order")) {
+          storeDataInFile((Object[]) data, DataType.ORDER);
+        } else if (((Object[]) data)[0].toString().startsWith("timeSlot")) {
+          storeDataInFile((Object[]) data, DataType.TIMESLOT);
+        } else {
+          System.out.println("SERVER ERROR: unknown request");
         }
       }
     }
   }
 
-  @Override
-  public void start(Stage stage) throws Exception {
-    processRequest();
+  private static void storeDataInFile(Object[] data, DataType dataType) {
+    String fileName = determineFileName(dataType);
+    try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+      out.writeObject(data);
+    } catch (IOException x) {
+      x.printStackTrace();
+    }
+    System.out.println("server, written data to file");
+  }
+
+  private static void sendData(DataType dataType) throws IOException {
+    Object[] data = null;
+    String fileName = determineFileName(dataType);
+
+    try (ObjectInput in = new ObjectInputStream(new FileInputStream(fileName))) {
+      data = (Object[]) in.readObject();
+    } catch (ClassNotFoundException | IOException x) {
+      x.printStackTrace();
+    }
+    try (Socket socket = new Socket("localhost", 5003);
+         ObjectOutput out = new ObjectOutputStream(socket.getOutputStream())) {
+      out.writeObject(data);
+      System.out.println("server, sent data to client: " + data);
+    }
+  }
+
+  private static String determineFileName(DataType dataType) {
+    String fileName = null;
+    switch (dataType) {
+      case DISH: fileName = "dishes.ser"; break;
+      case ORDER: fileName = "orders.ser"; break;
+      case TIMESLOT: fileName = "timeSlots.ser"; break;
+      case USER: fileName = "users.ser"; break;
+    }
+    return fileName;
   }
 }
 
