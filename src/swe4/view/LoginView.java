@@ -32,6 +32,7 @@ public class LoginView {
     FlowPane loginButtonContainer = new FlowPane(4, 4);
     loginButtonContainer.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
     Button loginButton = new Button("Einloggen");
+    loginButton.getStyleClass().add("button");
     loginButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -48,7 +49,9 @@ public class LoginView {
     });
     loginButtonContainer.getChildren().add(loginButton);
     loginContainer.setBottom(loginButtonContainer);
-    stage.setScene(new Scene(loginContainer, 800, 400));
+    Scene loginScene = new Scene(loginContainer, 800, 400);
+    loginScene.getStylesheets().add(LoginView.class.getResource("./styles.css").toExternalForm());
+    stage.setScene(loginScene);
   }
 
   private static void alert() {
