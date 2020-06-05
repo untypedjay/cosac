@@ -25,7 +25,9 @@ public class AdminView {
     BorderPane mainLayout = new BorderPane();
     mainLayout.setTop(mainMenuButtons(stage));
     mainLayout.setCenter(mainMenuTabs());
-    return new Scene(mainLayout, 800, 400);
+    Scene adminScene = new Scene(mainLayout, 800, 400);
+    adminScene.getStylesheets().add(LoginView.class.getResource("./styles.css").toExternalForm());
+    return adminScene;
   }
 
   private static HBox mainMenuButtons(Stage stage) {
