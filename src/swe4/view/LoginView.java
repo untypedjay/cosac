@@ -49,7 +49,8 @@ public class LoginView {
     });
     loginButtonContainer.getChildren().add(loginButton);
     loginContainer.setBottom(loginButtonContainer);
-    Scene loginScene = new Scene(loginContainer, 800, 400);
+    Scene loginScene = new Scene(loginContainer);
+    stage.setMaximized(true);
     loginScene.getStylesheets().add(LoginView.class.getResource("./styles.css").toExternalForm());
     stage.setScene(loginScene);
   }
