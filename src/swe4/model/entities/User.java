@@ -7,24 +7,33 @@ import javafx.scene.control.ToggleButton;
 import swe4.model.UserRepository;
 import java.io.*;
 
+import static swe4.model.entities.User.Role.ADMIN;
+
 public class User implements Serializable {
+  private static final long serialVersionUID = -8035508999217674220L;
+
+  public enum Role {
+    CUSTOMER,
+    ADMIN
+  }
+
   private String firstName = "";
   private String lastName = "";
   private String userName = "";
   private String passwordHash = "";
   private boolean locked = false;
-  private boolean admin = false;
+  private Role role = null;
   private transient ToggleButton lockButton = null;
   private transient ToggleButton roleButton = null;
   private transient Button deleteButton = null;
 
-  public User(String fn, String ln, String un, String pwd, boolean locked, boolean admin) {
+  public User(String fn, String ln, String un, String pwd, boolean locked, Role role) {
     this.firstName = fn;
     this.lastName = ln;
     this.userName = un;
     this.passwordHash = pwd;
     this.locked = locked;
-    this.admin = admin;
+    this.role = role;
 
     this.lockButton = new ToggleButton();
     this.lockButton.setSelected(locked);
@@ -47,20 +56,21 @@ public class User implements Serializable {
     });
 
     this.roleButton = new ToggleButton("Kunde");
-    this.roleButton.setSelected(admin);
-    if (admin) {
-      roleButton.setText("Admin");
+    if (this.role == ADMIN) {
+      this.roleButton.setSelected(true);
+      this.roleButton.setText("Admin");
     } else {
-      roleButton.setText("Kunde");
+      this.roleButton.setSelected(false);
+      this.roleButton.setText("Kunde");
     }
     this.roleButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
         if (roleButton.isSelected()) {
-          setAdmin(true);
+          setRole(ADMIN);
           roleButton.setText("Admin");
         } else {
-          setAdmin(false);
+          setRole(Role.CUSTOMER);
           roleButton.setText("Kunde");
         }
       }
@@ -111,12 +121,12 @@ public class User implements Serializable {
     this.locked = locked;
   }
 
-  public boolean isAdmin() {
-    return admin;
+  public Role getRole() {
+    return role;
   }
 
-  public void setAdmin(boolean admin) {
-    this.admin = admin;
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   @Override
@@ -133,7 +143,7 @@ public class User implements Serializable {
     sb.append(" (");
     sb.append(locked);
     sb.append(" ,");
-    sb.append(admin);
+    sb.append(role);
     sb.append(")");
     return sb.toString();
   }

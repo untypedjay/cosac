@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Order implements Serializable {
+  private static final long serialVersionUID = -4610242843432448824L;
   private User customer = null;
   private Dish dish = null;
   private TimeSlot timeSlot = null;

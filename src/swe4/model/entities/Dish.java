@@ -10,6 +10,7 @@ import java.io.Serializable;
 import static swe4.model.DishRepository.deleteDish;
 
 public class Dish implements Serializable {
+  private static final long serialVersionUID = -287429762969025028L;
   private String name = "";
   private String section = "";
   private long priceInCents = 0;

@@ -12,6 +12,7 @@ import static java.time.LocalTime.parse;
 import static swe4.model.TimeSlotRepository.deleteTimeSlot;
 
 public class TimeSlot implements EventHandler, Serializable {
+  private static final long serialVersionUID = -87331671154138999L;
   private LocalTime startTime = null;
   private LocalTime endTime = null;
   private int maximumCustomers = 0;
