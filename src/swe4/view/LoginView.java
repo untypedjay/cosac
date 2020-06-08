@@ -22,8 +22,12 @@ public class LoginView {
     loginForm.setHgap(4);
     loginForm.setVgap(4);
     TextField inputUsername = new TextField();
+    inputUsername.getStyleClass().add("input");
     PasswordField inputPassword = new PasswordField();
-    loginForm.add(new Label("Bei CosaC anmelden"), 0, 0, 2, 1);
+    inputPassword.getStyleClass().add("input");
+    Label loginHeader = new Label("Bei CosaC anmelden");
+    loginHeader.getStyleClass().add("login-header");
+    loginForm.add(loginHeader, 0, 0, 2, 1);
     loginForm.add(new Label("Benutzername:"), 0, 1);
     loginForm.add(inputUsername, 1, 1);
     loginForm.add(new Label("Passwort:"), 0, 2);
@@ -49,8 +53,9 @@ public class LoginView {
     });
     loginButtonContainer.getChildren().add(loginButton);
     loginContainer.setBottom(loginButtonContainer);
-    Scene loginScene = new Scene(loginContainer);
-    stage.setMaximized(true);
+    loginContainer.getStyleClass().add("login");
+    Scene loginScene = new Scene(loginContainer, 780, 450);
+
     loginScene.getStylesheets().add(LoginView.class.getResource("./styles.css").toExternalForm());
     stage.setScene(loginScene);
   }

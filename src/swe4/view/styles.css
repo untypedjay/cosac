@@ -1,12 +1,21 @@
 .button {
-    -fx-text-fill: green;
-    -fx-background-color: red;
+    -fx-text-fill: #322525;
+    -fx-background-color: #79d1f7;
 }
 
 .label {
-    -fx-background-color: #ff00ff;
+    -fx-text-fill: #322525;
 }
 
-#grey-style {
-    -fx-background-color: gray;
+/* login */
+.login {
+    -fx-background-color: #f79f79;
+}
+
+.input {
+    -fx-background-color: #f9e9e3;
+}
+
+.login-header {
+    -fx-font-size: 3em;
 }

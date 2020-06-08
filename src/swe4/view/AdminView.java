@@ -25,7 +25,7 @@ public class AdminView {
     BorderPane mainLayout = new BorderPane();
     mainLayout.setTop(mainMenuButtons(stage));
     mainLayout.setCenter(mainMenuTabs());
-    Scene adminScene = new Scene(mainLayout, 800, 400);
+    Scene adminScene = new Scene(mainLayout);
     adminScene.getStylesheets().add(LoginView.class.getResource("./styles.css").toExternalForm());
     return adminScene;
   }
@@ -55,6 +55,7 @@ public class AdminView {
       }
     );
     mainMenuButtons.getChildren().addAll(lastSavedLabel, saveButton, updateButton, logoutButton);
+    stage.setMaximized(true);
     return mainMenuButtons;
   }
 
