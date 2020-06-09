@@ -34,7 +34,19 @@ public class User implements Serializable {
     this.passwordHash = pwd;
     this.locked = locked;
     this.role = role;
+    initLockButton();
+    initDeleteButton();
 
+    this.deleteButton = new Button("Löschen");
+    this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        UserRepository.deleteUser(getUserName());
+      }
+    });
+  }
+
+  private void initLockButton() {
     this.lockButton = new ToggleButton();
     this.lockButton.setSelected(locked);
     if (locked) {
@@ -54,7 +66,9 @@ public class User implements Serializable {
         }
       }
     });
+  }
 
+  private void initDeleteButton() {
     this.roleButton = new ToggleButton("Kunde");
     if (this.role == ADMIN) {
       this.roleButton.setSelected(true);
@@ -73,14 +87,6 @@ public class User implements Serializable {
           setRole(Role.CUSTOMER);
           roleButton.setText("Kunde");
         }
-      }
-    });
-
-    this.deleteButton = new Button("Löschen");
-    this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        UserRepository.deleteUser(getUserName());
       }
     });
   }
