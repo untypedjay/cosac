@@ -10,14 +10,14 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import swe4.model.UserRepository;
+import swe4.model.data.UserRepository;
 import swe4.util.DateUtil;
 import java.io.IOException;
 import java.util.Date;
-import static swe4.model.DishRepository.getDishes;
-import static swe4.model.OrderRepository.getOrders;
-import static swe4.model.Repository.saveData;
-import static swe4.model.TimeSlotRepository.getTimeSlots;
+import static swe4.model.data.DishRepository.getDishes;
+import static swe4.model.data.OrderRepository.getOrders;
+import static swe4.model.data.Repository.saveData;
+import static swe4.model.data.TimeSlotRepository.getTimeSlots;
 
 public class AdminView {
 

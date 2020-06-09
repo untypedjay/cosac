@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 
 import static java.time.LocalTime.parse;
-import static swe4.model.TimeSlotRepository.deleteTimeSlot;
+import static swe4.model.data.TimeSlotRepository.deleteTimeSlot;
 
 public class TimeSlot implements EventHandler, Serializable {
   private static final long serialVersionUID = -87331671154138999L;

@@ -1,4 +1,4 @@
-package swe4.model;
+package swe4.model.data;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,14 +6,14 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import static swe4.model.DishRepository.getDishes;
-import static swe4.model.DishRepository.receiveDishes;
-import static swe4.model.OrderRepository.getOrders;
-import static swe4.model.OrderRepository.receiveOrders;
-import static swe4.model.TimeSlotRepository.getTimeSlots;
-import static swe4.model.TimeSlotRepository.receiveTimeSlots;
-import static swe4.model.UserRepository.getUsers;
-import static swe4.model.UserRepository.receiveUsers;
+import static swe4.model.data.DishRepository.getDishes;
+import static swe4.model.data.DishRepository.receiveDishes;
+import static swe4.model.data.OrderRepository.getOrders;
+import static swe4.model.data.OrderRepository.receiveOrders;
+import static swe4.model.data.TimeSlotRepository.getTimeSlots;
+import static swe4.model.data.TimeSlotRepository.receiveTimeSlots;
+import static swe4.model.data.UserRepository.getUsers;
+import static swe4.model.data.UserRepository.receiveUsers;
 
 public class Repository {
   public static void loadData() throws ClassNotFoundException, IOException {

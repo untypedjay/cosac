@@ -1,4 +1,4 @@
-package swe4.model;
+package swe4.model.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

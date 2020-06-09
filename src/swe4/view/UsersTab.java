@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import swe4.model.UserRepository;
+import swe4.model.data.UserRepository;
 import swe4.model.entities.User;
 
 public class UsersTab {

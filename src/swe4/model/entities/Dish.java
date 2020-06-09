@@ -7,7 +7,7 @@ import swe4.util.PriceUtil;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import static swe4.model.DishRepository.deleteDish;
+import static swe4.model.data.DishRepository.deleteDish;
 
 public class Dish implements Serializable {
   private static final long serialVersionUID = -287429762969025028L;

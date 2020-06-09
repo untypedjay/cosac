@@ -2,7 +2,7 @@ package swe4;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import swe4.model.*;
+import swe4.model.data.Repository;
 import swe4.view.LoginView;
 
 import java.io.IOException;

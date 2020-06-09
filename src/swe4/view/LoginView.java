@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import swe4.model.UserRepository;
+import swe4.model.data.UserRepository;
 
 public class LoginView {
 

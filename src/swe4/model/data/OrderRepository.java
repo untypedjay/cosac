@@ -1,11 +1,11 @@
-package swe4.model;
+package swe4.model.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.entities.Order;
 
-import static swe4.model.DishRepository.getDish;
-import static swe4.model.UserRepository.getUser;
+import static swe4.model.data.DishRepository.getDish;
+import static swe4.model.data.UserRepository.getUser;
 
 public class OrderRepository {
 
