@@ -10,6 +10,8 @@ import javafx.scene.layout.FlowPane;
 import swe4.model.entities.TimeSlot;
 
 public class TimeSlotsTab {
+  private final static String TIMESTAMP_REGEX = "([0-1][0-9]|2[0-3]):[0-5][0-9]";
+  private final static String ERROR_ALERT_TITLE = "Hinzufügen fehlgeschlagen!";
   public static BorderPane construct(ObservableList<TimeSlot> timeSlots) {
     BorderPane timeSlotPane = new BorderPane();
     TableView<TimeSlot> timeSlotsTable = new TableView<>();
@@ -51,14 +53,14 @@ public class TimeSlotsTab {
       public void handle(ActionEvent actionEvent) {
         if (inputStartTime.getText().isEmpty() || inputEndTime.getText().isEmpty()
                                                || inputMaxCustomers.getText().isEmpty()) {
-          emptyAlert();
-        } else if (!inputStartTime.getText().matches("([0-1][0-9]|2[0-3]):[0-5][0-9]") ||
-                   !inputEndTime.getText().matches("([0-1][0-9]|2[0-3]):[0-5][0-9]")) {
-          invalidTimeAlert();
+          showErrorAlert(ERROR_ALERT_TITLE, "Unvollständige Eingabe!", "Bitte füllen Sie alle Felder aus.");
+        } else if (!inputStartTime.getText().matches(TIMESTAMP_REGEX) ||
+                   !inputEndTime.getText().matches(TIMESTAMP_REGEX)) {
+          showErrorAlert(ERROR_ALERT_TITLE, "Falsches Zeitformat!", "Bitte verwenden Sie das gängige Uhrzeitformat.");
           inputStartTime.setText("");
           inputEndTime.setText("");
         } else if (!inputMaxCustomers.getText().matches("[0-9]*")) {
-          invalidNumberAlert();
+          showErrorAlert(ERROR_ALERT_TITLE, "Falsches Zahlenformat!", "Bitte verwenden Sie ein ganze positive Zahl");
           inputMaxCustomers.setText("");
         } else {
           timeSlots.add(new TimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText()));
@@ -76,27 +78,11 @@ public class TimeSlotsTab {
     return timeSlotPane;
   }
 
-  private static void emptyAlert() {
+  private static void showErrorAlert(String title, String headerText, String contentText) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Hinzufügen fehlgeschlagen!");
-    alert.setHeaderText("Unvollständige Eingabe!");
-    alert.setContentText("Bitte füllen Sie alle Felder aus.");
-    alert.showAndWait();
-  }
-
-  private static void invalidTimeAlert() {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Hinzufügen fehlgeschlagen!");
-    alert.setHeaderText("Falsches Zeitformat!");
-    alert.setContentText("Bitte verwenden Sie das gängige Uhrzeitformat.");
-    alert.showAndWait();
-  }
-
-  private static void invalidNumberAlert() {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Hinzufügen fehlgeschlagen!");
-    alert.setHeaderText("Falsches Zahlenformat!");
-    alert.setContentText("Bitte verwenden Sie ein ganze positive Zahl");
+    alert.setTitle(title);
+    alert.setHeaderText(headerText);
+    alert.setContentText(contentText);
     alert.showAndWait();
   }
 }
