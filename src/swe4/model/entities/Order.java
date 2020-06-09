@@ -54,8 +54,4 @@ public class Order implements Serializable {
     sb.append(", ");
     return sb.toString();
   }
-
-  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
-  }
 }

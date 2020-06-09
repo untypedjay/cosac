@@ -60,8 +60,4 @@ public class Dish implements Serializable {
     sb.append(priceInCents);
     return sb.toString();
   }
-
-  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
-  }
 }
