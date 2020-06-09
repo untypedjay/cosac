@@ -17,15 +17,15 @@ public class User implements Serializable {
     ADMIN
   }
 
-  private String firstName = "";
-  private String lastName = "";
-  private String userName = "";
-  private String passwordHash = "";
-  private boolean locked = false;
-  private Role role = null;
-  private transient ToggleButton lockButton = null;
-  private transient ToggleButton roleButton = null;
-  private transient Button deleteButton = null;
+  private String firstName;
+  private String lastName;
+  private String userName;
+  private String passwordHash;
+  private boolean locked;
+  private Role role;
+  private transient ToggleButton lockButton;
+  private transient ToggleButton roleButton;
+  private transient Button deleteButton;
 
   public User(String fn, String ln, String un, String pwd, boolean locked, Role role) {
     this.firstName = fn;

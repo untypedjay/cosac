@@ -13,10 +13,10 @@ import static swe4.model.data.TimeSlotRepository.deleteTimeSlot;
 
 public class TimeSlot implements EventHandler, Serializable {
   private static final long serialVersionUID = -87331671154138999L;
-  private LocalTime startTime = null;
-  private LocalTime endTime = null;
-  private int maximumCustomers = 0;
-  private transient Button deleteButton = null;
+  private LocalTime startTime;
+  private LocalTime endTime;
+  private int maximumCustomers;
+  private transient Button deleteButton;
 
   public TimeSlot(LocalTime startTime, LocalTime endTime, int maximumCustomers) {
     this.startTime = startTime;

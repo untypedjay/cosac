@@ -11,10 +11,10 @@ import static swe4.model.data.DishRepository.deleteDish;
 
 public class Dish implements Serializable {
   private static final long serialVersionUID = -287429762969025028L;
-  private String name = "";
-  private String section = "";
-  private long priceInCents = 0;
-  private transient Button deleteButton = null;
+  private String name;
+  private String section;
+  private long priceInCents;
+  private transient Button deleteButton;
 
   public Dish(String name, String section, long priceInCents) {
     this.name = name;

@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class Order implements Serializable {
   private static final long serialVersionUID = -4610242843432448824L;
-  private User customer = null;
-  private Dish dish = null;
-  private TimeSlot timeSlot = null;
-  private Date orderTime = null;
+  private User customer;
+  private Dish dish;
+  private TimeSlot timeSlot;
+  private Date orderTime;
 
   public Order(User customer, Dish dish, TimeSlot timeSlot) {
     this.customer = customer;
