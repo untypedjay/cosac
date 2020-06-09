@@ -29,7 +29,7 @@ public class OrderRepository {
     orders.clear();
     for (int i = 0; i < orderObjectArray.length; ++i) {
       Order order = (Order) orderObjectArray[i];
-      orders.add(new Order(getUser(order.getCustomerUserName()), getDish(order.getDishName()), order.getTimeSlot()));
+      orders.add(new Order(order.getCustomer(), getDish(order.getDishName()), order.getTimeSlot()));
     }
     System.out.println("client, received orders: " + orders);
   }

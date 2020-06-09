@@ -20,12 +20,8 @@ public class Order implements Serializable {
     this.orderTime = new Date();
   }
 
-  public String getCustomerName() {
-    return customer.getFirstName() + " " + customer.getLastName();
-  }
-
-  public String getCustomerUserName() {
-    return customer.getUserName();
+  public User getCustomer() {
+    return customer;
   }
 
   public String getDishName() {
@@ -48,7 +44,9 @@ public class Order implements Serializable {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("order: ");
-    sb.append(getCustomerName());
+    sb.append(customer.getFirstName());
+    sb.append(" ");
+    sb.append(customer.getLastName());
     sb.append(", ");
     sb.append(getDishName());
     sb.append(", ");
