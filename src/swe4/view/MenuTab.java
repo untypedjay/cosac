@@ -16,15 +16,15 @@ public class MenuTab {
     TableView<Dish> menuTable = new TableView<Dish>();
 
     menuTable.setItems(dishes);
-    TableColumn<Dish, String> mealTypeCol = new TableColumn<>("Bereich");
+    TableColumn<Dish, String> mealTypeCol = new TableColumn<>("Section");
     mealTypeCol.setCellValueFactory(new PropertyValueFactory<>("section"));
     menuTable.getColumns().add(mealTypeCol);
 
-    TableColumn<Dish, String> descriptionCol = new TableColumn<>("Bezeichnung");
+    TableColumn<Dish, String> descriptionCol = new TableColumn<>("Name");
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     menuTable.getColumns().add(descriptionCol);
 
-    TableColumn<Dish, Long> priceCol = new TableColumn<>("Preis");
+    TableColumn<Dish, Long> priceCol = new TableColumn<>("Price");
     priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     menuTable.getColumns().add(priceCol);
 
@@ -35,18 +35,18 @@ public class MenuTab {
     FlowPane addMealContainer = new FlowPane(4, 4);
 
     TextField section = new TextField();
-    section.setPromptText("Bereich (z.B. Vegetarische Gerichte)");
+    section.setPromptText("Section (e.g. Vegetarische Gerichte)");
     addMealContainer.getChildren().add(section);
 
     TextField name = new TextField();
-    name.setPromptText("Bezeichnung (z.B. Spaghetti)");
+    name.setPromptText("Name (e.g. Spaghetti)");
     addMealContainer.getChildren().add(name);
 
     TextField price = new TextField();
-    price.setPromptText("Preis (z.B. 7.34)");
+    price.setPromptText("Price (e.g. 7.34)");
     addMealContainer.getChildren().add(price);
 
-    Button addButton = new Button("Hinzufügen");
+    Button addButton = new Button("Add");
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -73,17 +73,17 @@ public class MenuTab {
 
   private static void emptyAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Hinzufügen fehlgeschlagen!");
-    alert.setHeaderText("Unvollständige Eingabe!");
-    alert.setContentText("Bitte füllen Sie alle Felder aus.");
+    alert.setTitle("Adding failed!");
+    alert.setHeaderText("Incomplete input!");
+    alert.setContentText("Please fill out all fields.");
     alert.showAndWait();
   }
 
   private static void invalidPriceAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Hinzufügen fehlgeschlagen!");
-    alert.setHeaderText("Falsches Preisformat!");
-    alert.setContentText("Bitte verwenden Sie nur Zahlen getrennt von einem Punkt.");
+    alert.setTitle("Adding failed!");
+    alert.setHeaderText("Poor price formatting!");
+    alert.setContentText("Please only use numbers that are separated with a dot.");
     alert.showAndWait();
   }
 }

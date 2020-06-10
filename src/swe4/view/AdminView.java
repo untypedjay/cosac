@@ -32,8 +32,8 @@ public class AdminView {
 
   private static HBox mainMenuButtons(Stage stage) {
     HBox mainMenuButtons = new HBox();
-    Label lastSavedLabel = new Label("Zuletzt gespeichert um " + DateUtil.formatTime(new Date()) + " Uhr");
-    Button saveButton = new Button("Speichern");
+    Label lastSavedLabel = new Label("Last saved at " + DateUtil.formatTime(new Date()));
+    Button saveButton = new Button("Save");
     saveButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -42,11 +42,11 @@ public class AdminView {
         } catch (IOException e) {
           e.printStackTrace();
         }
-        lastSavedLabel.setText("Zuletzt gespeichert um " + DateUtil.formatTime(new Date()) + " Uhr");
+        lastSavedLabel.setText("Last saved at " + DateUtil.formatTime(new Date()));
       }
     });
-    Button updateButton = new Button("Aktualisieren");
-    Button logoutButton = new Button("Ausloggen");
+    Button updateButton = new Button("Update");
+    Button logoutButton = new Button("Logout");
     logoutButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -63,16 +63,16 @@ public class AdminView {
 
     TabPane mainMenuTabs = new TabPane();
 
-    Tab tabOrders = new Tab("Bestellungen");
+    Tab tabOrders = new Tab("Orders");
     tabOrders.setContent(OrderTab.create(getOrders()));
 
-    Tab tabMenu = new Tab("Speisekarte");
+    Tab tabMenu = new Tab("Menu");
     tabMenu.setContent(MenuTab.create(getDishes()));
 
-    Tab tabTimeSlots = new Tab("Zeitbereiche");
+    Tab tabTimeSlots = new Tab("Time Slots");
     tabTimeSlots.setContent(TimeSlotsTab.construct(getTimeSlots()));
 
-    Tab tabUsers = new Tab("Benutzerverwaltung");
+    Tab tabUsers = new Tab("User Management");
     tabUsers.setContent(UsersTab.create(UserRepository.getUsers()));
 
     mainMenuTabs.getTabs().addAll(tabOrders, tabMenu, tabTimeSlots, tabUsers);

@@ -25,17 +25,17 @@ public class LoginView {
     inputUsername.getStyleClass().add("input");
     PasswordField inputPassword = new PasswordField();
     inputPassword.getStyleClass().add("input");
-    Label loginHeader = new Label("Bei CosaC anmelden");
+    Label loginHeader = new Label("Welcome to Corona Safe Canteen");
     loginHeader.getStyleClass().add("login-header");
     loginForm.add(loginHeader, 0, 0, 2, 1);
-    loginForm.add(new Label("Benutzername:"), 0, 1);
+    loginForm.add(new Label("Username:"), 0, 1);
     loginForm.add(inputUsername, 1, 1);
-    loginForm.add(new Label("Passwort:"), 0, 2);
+    loginForm.add(new Label("Password:"), 0, 2);
     loginForm.add(inputPassword, 1, 2);
     loginContainer.setCenter(loginForm);
     FlowPane loginButtonContainer = new FlowPane(4, 4);
     loginButtonContainer.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-    Button loginButton = new Button("Einloggen");
+    Button loginButton = new Button("Login");
     loginButton.getStyleClass().add("button");
     loginButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -62,9 +62,9 @@ public class LoginView {
 
   private static void alert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Einloggen fehlgeschlagen!");
-    alert.setHeaderText("Benutzername oder Passwort inkorrekt!");
-    alert.setContentText("Bitte versuchen Sie es noch einmal.");
+    alert.setTitle("Login failed!");
+    alert.setHeaderText("Incorrect username or password!");
+    alert.setContentText("Please try again.");
     alert.showAndWait();
   }
 }
