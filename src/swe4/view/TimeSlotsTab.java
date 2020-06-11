@@ -11,21 +11,21 @@ import swe4.model.entities.TimeSlot;
 
 public class TimeSlotsTab {
   private final static String TIMESTAMP_REGEX = "([0-1][0-9]|2[0-3]):[0-5][0-9]";
-  private final static String ERROR_ALERT_TITLE = "Hinzufügen fehlgeschlagen!";
+  private final static String ERROR_ALERT_TITLE = "Adding failed!";
   public static BorderPane construct(ObservableList<TimeSlot> timeSlots) {
     BorderPane timeSlotPane = new BorderPane();
     TableView<TimeSlot> timeSlotsTable = new TableView<>();
 
     timeSlotsTable.setItems(timeSlots);
-    TableColumn<TimeSlot, String> startTimeCol = new TableColumn<>("Beginn");
+    TableColumn<TimeSlot, String> startTimeCol = new TableColumn<>("Start");
     startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
     timeSlotsTable.getColumns().add(startTimeCol);
 
-    TableColumn<TimeSlot, String> endTimeCol = new TableColumn<>("Ende");
+    TableColumn<TimeSlot, String> endTimeCol = new TableColumn<>("End");
     endTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
     timeSlotsTable.getColumns().add(endTimeCol);
 
-    TableColumn<TimeSlot, Integer> maxCustomersCol = new TableColumn<>("Maximale Kundenanzahl");
+    TableColumn<TimeSlot, Integer> maxCustomersCol = new TableColumn<>("Maximum Customers");
     maxCustomersCol.setCellValueFactory(new PropertyValueFactory<>("maximumCustomers"));
     timeSlotsTable.getColumns().add(maxCustomersCol);
 
@@ -36,31 +36,31 @@ public class TimeSlotsTab {
     FlowPane addTimeSlotContainer = new FlowPane(4, 4);
 
     TextField inputStartTime = new TextField();
-    inputStartTime.setPromptText("Startzeit (z.B. 10:30)");
+    inputStartTime.setPromptText("Start time (e.g. 10:30)");
     addTimeSlotContainer.getChildren().add(inputStartTime);
 
     TextField inputEndTime = new TextField();
-    inputEndTime.setPromptText("Endzeit (z.B. 11:00)");
+    inputEndTime.setPromptText("End time (e.g. 11:00)");
     addTimeSlotContainer.getChildren().add(inputEndTime);
 
     TextField inputMaxCustomers = new TextField();
-    inputMaxCustomers.setPromptText("Maximale Kundenanzahl (z.B. 10)");
+    inputMaxCustomers.setPromptText("Maximum Customers (e.g. 10)");
     addTimeSlotContainer.getChildren().add(inputMaxCustomers);
 
-    Button addButton = new Button("Hinzufügen");
+    Button addButton = new Button("Add");
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
         if (inputStartTime.getText().isEmpty() || inputEndTime.getText().isEmpty()
                                                || inputMaxCustomers.getText().isEmpty()) {
-          showErrorAlert(ERROR_ALERT_TITLE, "Unvollständige Eingabe!", "Bitte füllen Sie alle Felder aus.");
+          showErrorAlert(ERROR_ALERT_TITLE, "Incomplete Input!", "Please fill out all fields.");
         } else if (!inputStartTime.getText().matches(TIMESTAMP_REGEX) ||
                    !inputEndTime.getText().matches(TIMESTAMP_REGEX)) {
-          showErrorAlert(ERROR_ALERT_TITLE, "Falsches Zeitformat!", "Bitte verwenden Sie das gängige Uhrzeitformat.");
+          showErrorAlert(ERROR_ALERT_TITLE, "Poor time formatting!", "Please use the most common time formatting.");
           inputStartTime.setText("");
           inputEndTime.setText("");
         } else if (!inputMaxCustomers.getText().matches("[0-9]*")) {
-          showErrorAlert(ERROR_ALERT_TITLE, "Falsches Zahlenformat!", "Bitte verwenden Sie ein ganze positive Zahl");
+          showErrorAlert(ERROR_ALERT_TITLE, "Poor number formatting!", "Please only use positive integers.");
           inputMaxCustomers.setText("");
         } else {
           timeSlots.add(new TimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText()));

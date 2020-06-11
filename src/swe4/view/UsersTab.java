@@ -16,15 +16,15 @@ public class UsersTab {
     TableView<User> userTable = new TableView<>();
 
     userTable.setItems(users);
-    TableColumn<User, String> firstNameCol = new TableColumn<User, String>("Vorname");
+    TableColumn<User, String> firstNameCol = new TableColumn<User, String>("Firstname");
     firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     userTable.getColumns().add(firstNameCol);
 
-    TableColumn<User, String> lastNameCol = new TableColumn<User, String>("Nachname");
+    TableColumn<User, String> lastNameCol = new TableColumn<User, String>("Lastname");
     lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     userTable.getColumns().add(lastNameCol);
 
-    TableColumn<User, String> userNameCol = new TableColumn<User, String>("Benutzername");
+    TableColumn<User, String> userNameCol = new TableColumn<User, String>("Username");
     userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
     userTable.getColumns().add(userNameCol);
 
@@ -43,22 +43,22 @@ public class UsersTab {
     FlowPane addUserContainer = new FlowPane(4, 4);
 
     TextField inputFirstName = new TextField();
-    inputFirstName.setPromptText("Vorname");
+    inputFirstName.setPromptText("Firstname");
     addUserContainer.getChildren().add(inputFirstName);
 
     TextField inputLastName = new TextField();
-    inputLastName.setPromptText("Nachname");
+    inputLastName.setPromptText("Lastname");
     addUserContainer.getChildren().add(inputLastName);
 
     TextField inputUserName = new TextField();
-    inputUserName.setPromptText("Benutzername");
+    inputUserName.setPromptText("Username");
     addUserContainer.getChildren().add(inputUserName);
 
     TextField inputPassword = new TextField();
-    inputPassword.setPromptText("Passwort");
+    inputPassword.setPromptText("Password");
     addUserContainer.getChildren().add(inputPassword);
 
-    Button addButton = new Button("Hinzufügen");
+    Button addButton = new Button("Add");
     addButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
@@ -84,9 +84,9 @@ public class UsersTab {
 
   private static void emptyAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Hinzufügen fehlgeschlagen!");
-    alert.setHeaderText("Unvollständige Eingabe!");
-    alert.setContentText("Bitte füllen Sie alle Felder aus.");
+    alert.setTitle("Adding failed!");
+    alert.setHeaderText("Input incomplete!");
+    alert.setContentText("Please fill out all fields.");
     alert.showAndWait();
   }
 }
