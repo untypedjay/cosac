@@ -7,10 +7,6 @@ import swe4.model.entities.Dish;
 public class DishRepoSocketImpl implements DishRepo {
   private static final ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-  DishRepoSocketImpl(DishSource dc) {
-    dishSource.receive();
-  }
-
   @Override
   public ObservableList<Dish> findAll() {
     return null;
@@ -24,5 +20,15 @@ public class DishRepoSocketImpl implements DishRepo {
   @Override
   public boolean deleteDish(String name) {
     return false;
+  }
+
+  @Override
+  public void receiveDishes(Object[] dishObjectArray) {
+    dishes.clear();
+    for (int i = 0; i < dishObjectArray.length; ++i) {
+      Dish dish = (Dish) dishObjectArray[i];
+      dishes.add(new Dish(dish.getName(), dish.getSection(), dish.getPriceInCents(), this));
+    }
+    System.out.println("client, received dishes: " + dishes);
   }
 }
