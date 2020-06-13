@@ -4,7 +4,9 @@ import javafx.collections.ObservableList;
 import swe4.model.entities.Dish;
 
 public interface DishRepo {
-  ObservableList<Dish> findAll();
-  Dish findByName(String name);
+  ObservableList<Dish> getDishes();
+  Dish getDishByName(String name);
   boolean deleteDish(String name);
+  boolean updateDishes();
+  boolean saveDishes();
 }
