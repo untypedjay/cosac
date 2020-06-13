@@ -8,6 +8,7 @@ import java.time.LocalTime;
 public interface TimeSlotRepo {
   ObservableList<TimeSlot> getTimeSlots();
   TimeSlot getTimeSlotByTime(LocalTime start, LocalTime end);
+  boolean addTimeSlot(TimeSlot timeSlot);
   boolean deleteTimeSlot(LocalTime start, LocalTime end);
   boolean updateTimeSlots();
   boolean saveTimeSlots();

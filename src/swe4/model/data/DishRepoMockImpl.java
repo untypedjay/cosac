@@ -3,13 +3,13 @@ package swe4.model.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.entities.Dish;
+
 import java.util.Iterator;
 
 public class DishRepoMockImpl implements DishRepo {
-  private static final ObservableList<Dish> dishes = FXCollections.observableArrayList();
+  private ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-  @Override
-  public void receiveDishes(Object[] dishObjectArray) {
+  public DishRepoMockImpl() {
     dishes.setAll(
       new Dish("Spaghetti Bolognese","Italienische Köstlichkeiten",  640, this),
       new Dish("Cordon Bleu vom Schwein mit Kartoffel und Reis","Heftig Deftig",  750, this),
@@ -20,18 +20,24 @@ public class DishRepoMockImpl implements DishRepo {
   }
 
   @Override
-  public ObservableList<Dish> findAll() {
+  public ObservableList<Dish> getDishes() {
     return dishes;
   }
 
   @Override
-  public Dish findByName(String name) {
+  public Dish getDishByName(String name) {
     for (Dish dish : dishes) {
       if (dish.getName().equals(name)) {
         return dish;
       }
     }
     return null;
+  }
+
+  @Override
+  public boolean addDish(Dish dish) {
+    dishes.add(dish);
+    return true;
   }
 
   @Override
@@ -43,5 +49,15 @@ public class DishRepoMockImpl implements DishRepo {
       }
     }
     return false;
+  }
+
+  @Override
+  public boolean updateDishes() {
+    return true;
+  }
+
+  @Override
+  public boolean saveDishes() {
+    return true;
   }
 }
