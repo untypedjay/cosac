@@ -1,12 +1,13 @@
-package swe4.view;
+package swe4.views.login;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import swe4.model.data.Repository;
+import swe4.views.ViewController;
+import swe4.views.ViewType;
 
 public class LoginView extends BorderPane {
 
