@@ -1,13 +1,11 @@
 package swe4.model.entities;
 
 import swe4.util.DateUtil;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Order implements Serializable {
-  private static final long serialVersionUID = -4610242843432448824L;
+  private String id = null;
   private User customer;
   private Dish dish;
   private TimeSlot timeSlot;
@@ -18,6 +16,10 @@ public class Order implements Serializable {
     this.dish = dish;
     this.timeSlot = timeSlot;
     this.orderTime = new Date();
+  }
+
+  public String getId() {
+    return id;
   }
 
   public User getCustomer() {

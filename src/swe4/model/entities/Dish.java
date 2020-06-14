@@ -3,11 +3,9 @@ package swe4.model.entities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import swe4.model.data.dishes.DishRepo;
 import swe4.util.PriceUtil;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
-import static swe4.model.data.DishRepository.deleteDish;
 
 public class Dish implements Serializable {
   private static final long serialVersionUID = -287429762969025028L;
@@ -16,7 +14,7 @@ public class Dish implements Serializable {
   private long priceInCents;
   private transient Button deleteButton;
 
-  public Dish(String name, String section, long priceInCents) {
+  public Dish(String name, String section, long priceInCents, DishRepo repo) {
     this.name = name;
     this.section = section;
     this.priceInCents = priceInCents;
@@ -24,7 +22,7 @@ public class Dish implements Serializable {
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        deleteDish(getName());
+        repo.deleteDish(getName());
       }
     });
   }

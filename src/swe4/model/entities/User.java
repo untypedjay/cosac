@@ -4,7 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import swe4.model.data.UserRepository;
+import swe4.model.data.users.UserRepo;
+
 import java.io.*;
 
 import static swe4.model.entities.User.Role.ADMIN;
@@ -19,7 +20,7 @@ public class User implements Serializable {
 
   private String firstName;
   private String lastName;
-  private String userName;
+  private String username;
   private String passwordHash;
   private boolean locked;
   private Role role;
@@ -27,10 +28,10 @@ public class User implements Serializable {
   private transient ToggleButton roleButton;
   private transient Button deleteButton;
 
-  public User(String fn, String ln, String un, String pwd, boolean locked, Role role) {
+  public User(String fn, String ln, String un, String pwd, boolean locked, Role role, UserRepo repo) {
     this.firstName = fn;
     this.lastName = ln;
-    this.userName = un;
+    this.username = un;
     this.passwordHash = pwd;
     this.locked = locked;
     this.role = role;
@@ -41,7 +42,7 @@ public class User implements Serializable {
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        UserRepository.deleteUser(getUserName());
+        repo.deleteUser(getUsername());
       }
     });
   }
@@ -99,8 +100,8 @@ public class User implements Serializable {
     return lastName;
   }
 
-  public String getUserName() {
-    return userName;
+  public String getUsername() {
+    return username;
   }
 
   public String getPasswordHash() {
@@ -143,7 +144,7 @@ public class User implements Serializable {
     sb.append(" ");
     sb.append(lastName);
     sb.append(", ");
-    sb.append(userName);
+    sb.append(username);
     sb.append(", ");
     sb.append(passwordHash);
     sb.append(" (");

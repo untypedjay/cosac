@@ -1,37 +1,33 @@
 package swe4.model.entities;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import swe4.model.data.timeSlots.TimeSlotRepo;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 
 import static java.time.LocalTime.parse;
-import static swe4.model.data.TimeSlotRepository.deleteTimeSlot;
 
-public class TimeSlot implements EventHandler, Serializable {
-  private static final long serialVersionUID = -87331671154138999L;
+public class TimeSlot implements Serializable {
   private LocalTime startTime;
   private LocalTime endTime;
   private int maximumCustomers;
   private transient Button deleteButton;
 
-  public TimeSlot(LocalTime startTime, LocalTime endTime, int maximumCustomers) {
+  public TimeSlot(LocalTime startTime, LocalTime endTime, int maximumCustomers, TimeSlotRepo repo) {
     this.startTime = startTime;
     this.endTime = endTime;
     this.maximumCustomers = maximumCustomers;
     this.deleteButton = new Button("Löschen");
-    this.deleteButton.setOnAction(this::handle);
-  }
-
-  public TimeSlot(String startTime, String endTime, String maximumCustomers) {
-    this.startTime = parse(startTime);
-    this.endTime = parse(endTime);
-    this.maximumCustomers = Integer.parseInt(maximumCustomers);
-    this.deleteButton = new Button("Löschen");
-    this.deleteButton.setOnAction(this::handle);
+    this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        repo.deleteTimeSlot(startTime, endTime);
+      }
+    });
   }
 
   public LocalTime getStartTime() {
@@ -44,15 +40,6 @@ public class TimeSlot implements EventHandler, Serializable {
 
   public int getMaximumCustomers() {
     return maximumCustomers;
-  }
-
-  public Button getDeleteButton() {
-    return deleteButton;
-  }
-
-  @Override
-  public void handle(Event event) {
-    deleteTimeSlot(getStartTime(), getEndTime());
   }
 
   @Override
