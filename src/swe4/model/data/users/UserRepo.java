@@ -1,4 +1,4 @@
-package swe4.model.data;
+package swe4.model.data.users;
 
 import javafx.collections.ObservableList;
 import swe4.model.entities.User;
@@ -8,6 +8,7 @@ public interface UserRepo {
   User getUserByUsername(String username);
   boolean addUser(User user);
   boolean deleteUser(String username);
+  boolean isValidUser(String username, String password);
   boolean updateUsers();
   boolean saveUsers();
 }
