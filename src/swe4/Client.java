@@ -2,11 +2,10 @@ package swe4;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import swe4.model.data.Repository;
-import swe4.view.LoginView;
-
-import java.io.IOException;
+import swe4.views.ViewController;
+import swe4.views.ViewType;
 import java.util.concurrent.TimeUnit;
+import static swe4.model.data.Repository.RepoType.MOCK;
 
 public class Client extends Application {
   public static void main(String[] args) {
@@ -20,20 +19,7 @@ public class Client extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-//    UserRepository.loadMockUsers();
-//    DishRepository.loadMockDishes();
-//    TimeSlotRepository.loadMockTimeSlots();
-//    OrderRepository.loadMockOrders();
-    try {
-      Repository.loadData();
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    primaryStage.setTitle("CosaC");
-    LoginView.create(primaryStage);
-    primaryStage.show();
-    System.out.println();
+    ViewController viewController = new ViewController(primaryStage, MOCK);
+    viewController.render(ViewType.LOGIN_VIEW, 780, 450);
   }
 }

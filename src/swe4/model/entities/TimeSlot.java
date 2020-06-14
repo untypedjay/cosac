@@ -1,15 +1,11 @@
 package swe4.model.entities;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import swe4.model.data.timeSlots.TimeSlotRepo;
-
 import java.io.Serializable;
 import java.time.LocalTime;
-
-import static java.time.LocalTime.parse;
 
 public class TimeSlot implements Serializable {
   private LocalTime startTime;
@@ -21,7 +17,7 @@ public class TimeSlot implements Serializable {
     this.startTime = startTime;
     this.endTime = endTime;
     this.maximumCustomers = maximumCustomers;
-    this.deleteButton = new Button("Löschen");
+    this.deleteButton = new Button("Delete");
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -40,6 +36,10 @@ public class TimeSlot implements Serializable {
 
   public int getMaximumCustomers() {
     return maximumCustomers;
+  }
+
+  public Button getDeleteButton() {
+    return deleteButton;
   }
 
   @Override

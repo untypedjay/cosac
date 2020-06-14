@@ -5,14 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import swe4.model.data.users.UserRepo;
-
 import java.io.*;
 
 import static swe4.model.entities.User.Role.ADMIN;
 
 public class User implements Serializable {
-  private static final long serialVersionUID = -8035508999217674220L;
-
   public enum Role {
     CUSTOMER,
     ADMIN
@@ -38,7 +35,7 @@ public class User implements Serializable {
     initLockButton();
     initDeleteButton();
 
-    this.deleteButton = new Button("Löschen");
+    this.deleteButton = new Button("Delete");
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
@@ -51,32 +48,32 @@ public class User implements Serializable {
     this.lockButton = new ToggleButton();
     this.lockButton.setSelected(locked);
     if (locked) {
-      lockButton.setText("Gesperrt");
+      lockButton.setText("Locked");
     } else {
-      lockButton.setText("Sperren");
+      lockButton.setText("Lock");
     }
     this.lockButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
         if (lockButton.isSelected()) {
           setLocked(true);
-          lockButton.setText("Gesperrt");
+          lockButton.setText("Locked");
         } else {
           setLocked(false);
-          lockButton.setText("Sperren");
+          lockButton.setText("Lock");
         }
       }
     });
   }
 
   private void initDeleteButton() {
-    this.roleButton = new ToggleButton("Kunde");
+    this.roleButton = new ToggleButton("Customer");
     if (this.role == ADMIN) {
       this.roleButton.setSelected(true);
       this.roleButton.setText("Admin");
     } else {
       this.roleButton.setSelected(false);
-      this.roleButton.setText("Kunde");
+      this.roleButton.setText("Customer");
     }
     this.roleButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -86,7 +83,7 @@ public class User implements Serializable {
           roleButton.setText("Admin");
         } else {
           setRole(Role.CUSTOMER);
-          roleButton.setText("Kunde");
+          roleButton.setText("Customer");
         }
       }
     });

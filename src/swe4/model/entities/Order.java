@@ -22,8 +22,8 @@ public class Order implements Serializable {
     return id;
   }
 
-  public User getCustomer() {
-    return customer;
+  public String getCustomerName() {
+    return customer.getFirstName() + " " + customer.getLastName();
   }
 
   public String getDishName() {

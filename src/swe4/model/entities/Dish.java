@@ -8,7 +8,6 @@ import swe4.util.PriceUtil;
 import java.io.Serializable;
 
 public class Dish implements Serializable {
-  private static final long serialVersionUID = -287429762969025028L;
   private String name;
   private String section;
   private long priceInCents;
@@ -18,7 +17,7 @@ public class Dish implements Serializable {
     this.name = name;
     this.section = section;
     this.priceInCents = priceInCents;
-    this.deleteButton = new Button("Löschen");
+    this.deleteButton = new Button("Delete");
     this.deleteButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
@@ -31,9 +30,9 @@ public class Dish implements Serializable {
     return name;
   }
 
-  public long getPriceInCents() {
-    return priceInCents;
-  }
+//  public long getPriceInCents() {
+//    return priceInCents;
+//  }
 
   public String getPrice() {
     return PriceUtil.formatPrice(priceInCents);
