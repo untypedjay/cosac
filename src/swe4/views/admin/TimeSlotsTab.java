@@ -1,22 +1,22 @@
-package swe4.view;
+package swe4.views.admin;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import swe4.model.data.Repository;
 import swe4.model.entities.TimeSlot;
 
-public class TimeSlotsTab {
+public class TimeSlotsTab extends BorderPane {
   private final static String TIMESTAMP_REGEX = "([0-1][0-9]|2[0-3]):[0-5][0-9]";
   private final static String ERROR_ALERT_TITLE = "Adding failed!";
-  public static BorderPane construct(ObservableList<TimeSlot> timeSlots) {
-    BorderPane timeSlotPane = new BorderPane();
+
+  public TimeSlotsTab(Repository repo) {
     TableView<TimeSlot> timeSlotsTable = new TableView<>();
 
-    timeSlotsTable.setItems(timeSlots);
+    timeSlotsTable.setItems(repo.getTimeSlots());
     TableColumn<TimeSlot, String> startTimeCol = new TableColumn<>("Start");
     startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
     timeSlotsTable.getColumns().add(startTimeCol);
@@ -63,7 +63,8 @@ public class TimeSlotsTab {
           showErrorAlert(ERROR_ALERT_TITLE, "Poor number formatting!", "Please only use positive integers.");
           inputMaxCustomers.setText("");
         } else {
-          timeSlots.add(new TimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText()));
+
+          repo.addTimeSlot(inputStartTime.getText(), inputEndTime.getText(), inputMaxCustomers.getText());
           inputStartTime.setText("");
           inputEndTime.setText("");
           inputMaxCustomers.setText("");
@@ -72,13 +73,11 @@ public class TimeSlotsTab {
     });
     addTimeSlotContainer.getChildren().add(addButton);
 
-    timeSlotPane.setCenter(timeSlotsTable);
-    timeSlotPane.setBottom(addTimeSlotContainer);
-
-    return timeSlotPane;
+    this.setCenter(timeSlotsTable);
+    this.setBottom(addTimeSlotContainer);
   }
 
-  private static void showErrorAlert(String title, String headerText, String contentText) {
+  private void showErrorAlert(String title, String headerText, String contentText) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle(title);
     alert.setHeaderText(headerText);

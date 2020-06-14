@@ -1,21 +1,19 @@
-package swe4.view;
+package swe4.views.admin;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import swe4.model.data.Repository;
 import swe4.model.entities.Dish;
-import swe4.util.PriceUtil;
 
-public class MenuTab {
-  public static BorderPane create(ObservableList<Dish> dishes) {
-    BorderPane menuPane = new BorderPane();
+public class MenuTab extends BorderPane {
+  public MenuTab(Repository repo) {
     TableView<Dish> menuTable = new TableView<Dish>();
 
-    menuTable.setItems(dishes);
+    menuTable.setItems(repo.getDishes());
     TableColumn<Dish, String> mealTypeCol = new TableColumn<>("Section");
     mealTypeCol.setCellValueFactory(new PropertyValueFactory<>("section"));
     menuTable.getColumns().add(mealTypeCol);
@@ -56,7 +54,7 @@ public class MenuTab {
           invalidPriceAlert();
           price.setText("");
         } else {
-          dishes.add(new Dish(name.getText(), section.getText(), PriceUtil.convertToCents(price.getText())));
+          repo.addDish(name.getText(), section.getText(), price.getText());
           name.setText("");
           section.setText("");
           price.setText("");
@@ -65,13 +63,11 @@ public class MenuTab {
     });
     addMealContainer.getChildren().add(addButton);
 
-    menuPane.setCenter(menuTable);
-    menuPane.setBottom(addMealContainer);
-
-    return menuPane;
+    this.setCenter(menuTable);
+    this.setBottom(addMealContainer);
   }
 
-  private static void emptyAlert() {
+  private void emptyAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Adding failed!");
     alert.setHeaderText("Incomplete input!");
@@ -79,7 +75,7 @@ public class MenuTab {
     alert.showAndWait();
   }
 
-  private static void invalidPriceAlert() {
+  private void invalidPriceAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Adding failed!");
     alert.setHeaderText("Poor price formatting!");

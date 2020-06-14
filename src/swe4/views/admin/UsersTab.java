@@ -1,31 +1,29 @@
-package swe4.view;
+package swe4.views.admin;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import swe4.model.data.UserRepository;
+import swe4.model.data.Repository;
 import swe4.model.entities.User;
 
-public class UsersTab {
-  public static BorderPane create(ObservableList<User> users) {
-    BorderPane userPane = new BorderPane();
+public class UsersTab extends BorderPane {
+  public UsersTab(Repository repo) {
     TableView<User> userTable = new TableView<>();
 
-    userTable.setItems(users);
-    TableColumn<User, String> firstNameCol = new TableColumn<User, String>("Firstname");
+    userTable.setItems(repo.getUsers());
+    TableColumn<User, String> firstNameCol = new TableColumn<User, String>("First Name");
     firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
     userTable.getColumns().add(firstNameCol);
 
-    TableColumn<User, String> lastNameCol = new TableColumn<User, String>("Lastname");
+    TableColumn<User, String> lastNameCol = new TableColumn<User, String>("Last Name");
     lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     userTable.getColumns().add(lastNameCol);
 
     TableColumn<User, String> userNameCol = new TableColumn<User, String>("Username");
-    userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+    userNameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
     userTable.getColumns().add(userNameCol);
 
     TableColumn<User, String> lockButtonCol = new TableColumn<>("");
@@ -66,7 +64,7 @@ public class UsersTab {
           || inputUserName.getText().isEmpty() || inputPassword.getText().isEmpty()) {
           emptyAlert();
         } else {
-          UserRepository.addUser(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText());
+          repo.addUser(inputFirstName.getText(), inputLastName.getText(), inputUserName.getText(), inputPassword.getText());
           inputFirstName.setText("");
           inputLastName.setText("");
           inputUserName.setText("");
@@ -76,13 +74,11 @@ public class UsersTab {
     });
     addUserContainer.getChildren().add(addButton);
 
-    userPane.setCenter(userTable);
-    userPane.setBottom(addUserContainer);
-
-    return userPane;
+    this.setCenter(userTable);
+    this.setBottom(addUserContainer);
   }
 
-  private static void emptyAlert() {
+  private void emptyAlert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Adding failed!");
     alert.setHeaderText("Input incomplete!");

@@ -6,13 +6,11 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import swe4.model.data.UserRepository;
+import swe4.model.data.Repository;
 
-public class LoginView {
+public class LoginView extends BorderPane {
 
-  public static void create(Stage stage) {
-    BorderPane loginContainer = new BorderPane();
+  public LoginView(ViewController controller, Repository repo) {
     GridPane loginForm = new GridPane();
     ColumnConstraints col0 = new ColumnConstraints();
     col0.setHgrow(Priority.NEVER);
@@ -25,14 +23,14 @@ public class LoginView {
     inputUsername.getStyleClass().add("input");
     PasswordField inputPassword = new PasswordField();
     inputPassword.getStyleClass().add("input");
-    Label loginHeader = new Label("Welcome to Corona Safe Canteen");
+    Label loginHeader = new Label("Welcome to CosaC");
     loginHeader.getStyleClass().add("login-header");
     loginForm.add(loginHeader, 0, 0, 2, 1);
     loginForm.add(new Label("Username:"), 0, 1);
     loginForm.add(inputUsername, 1, 1);
     loginForm.add(new Label("Password:"), 0, 2);
     loginForm.add(inputPassword, 1, 2);
-    loginContainer.setCenter(loginForm);
+    this.setCenter(loginForm);
     FlowPane loginButtonContainer = new FlowPane(4, 4);
     loginButtonContainer.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
     Button loginButton = new Button("Login");
@@ -42,8 +40,8 @@ public class LoginView {
       public void handle(ActionEvent actionEvent) {
         String username = inputUsername.getText();
         String password = inputPassword.getText();
-        if (UserRepository.isValidUser(username, password)) {
-          stage.setScene(AdminView.create(stage));
+        if (repo.isValidUser(username, password)) {
+          controller.render(ViewType.ADMIN_VIEW, 780, 450);
         } else {
           inputUsername.setText("");
           inputPassword.setText("");
@@ -52,15 +50,11 @@ public class LoginView {
       }
     });
     loginButtonContainer.getChildren().add(loginButton);
-    loginContainer.setBottom(loginButtonContainer);
-    loginContainer.getStyleClass().add("login");
-    Scene loginScene = new Scene(loginContainer, 780, 450);
-
-    loginScene.getStylesheets().add(LoginView.class.getResource("./styles.css").toExternalForm());
-    stage.setScene(loginScene);
+    this.setBottom(loginButtonContainer);
+    this.getStyleClass().add("login");
   }
 
-  private static void alert() {
+  private void alert() {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Login failed!");
     alert.setHeaderText("Incorrect username or password!");
