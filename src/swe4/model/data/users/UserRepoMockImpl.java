@@ -12,12 +12,12 @@ public class UserRepoMockImpl implements UserRepo {
 
   public UserRepoMockImpl() {
     users.setAll(
-      new User("Bill", "Yard", "yard", PasswordUtil.generateHash("yard123"), false, ADMIN),
-      new User("admin", "admin", "admin", PasswordUtil.generateHash("admin"), false, ADMIN),
-      new User("Claire", "Waßer", "wasser", PasswordUtil.generateHash("wasser123"), false, CUSTOMER),
-      new User("Rainer", "Zufall", "zufall", PasswordUtil.generateHash("zufall123"), false, CUSTOMER),
-      new User("Martha", "Pfahl", "pfahl", PasswordUtil.generateHash("pfahl123"), false, CUSTOMER),
-      new User("Marie", "Huana", "huana", PasswordUtil.generateHash("huana123"), false, CUSTOMER)
+      new User("Bill", "Yard", "yard", PasswordUtil.generateHash("yard123"), false, ADMIN, this),
+      new User("admin", "admin", "admin", PasswordUtil.generateHash("admin"), false, ADMIN, this),
+      new User("Claire", "Waßer", "wasser", PasswordUtil.generateHash("wasser123"), false, CUSTOMER, this),
+      new User("Rainer", "Zufall", "zufall", PasswordUtil.generateHash("zufall123"), false, CUSTOMER, this),
+      new User("Martha", "Pfahl", "pfahl", PasswordUtil.generateHash("pfahl123"), false, CUSTOMER, this),
+      new User("Marie", "Huana", "huana", PasswordUtil.generateHash("huana123"), false, CUSTOMER, this)
     );
   }
   @Override

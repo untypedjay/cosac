@@ -12,11 +12,11 @@ public class TimeSlotRepoMockImpl implements TimeSlotRepo {
 
   public TimeSlotRepoMockImpl() {
     timeSlots.setAll(
-      new TimeSlot(LocalTime.of(11, 00), LocalTime.of(11, 30), 10),
-      new TimeSlot(LocalTime.of(11, 30), LocalTime.of(12, 00), 10),
-      new TimeSlot(LocalTime.of(12, 00), LocalTime.of(12, 30), 10),
-      new TimeSlot(LocalTime.of(12, 30), LocalTime.of(13, 00), 10),
-      new TimeSlot(LocalTime.of(13, 00), LocalTime.of(13, 30), 10)
+      new TimeSlot(LocalTime.of(11, 00), LocalTime.of(11, 30), 10, this),
+      new TimeSlot(LocalTime.of(11, 30), LocalTime.of(12, 00), 10, this),
+      new TimeSlot(LocalTime.of(12, 00), LocalTime.of(12, 30), 10, this),
+      new TimeSlot(LocalTime.of(12, 30), LocalTime.of(13, 00), 10, this),
+      new TimeSlot(LocalTime.of(13, 00), LocalTime.of(13, 30), 10, this)
     );
   }
 
