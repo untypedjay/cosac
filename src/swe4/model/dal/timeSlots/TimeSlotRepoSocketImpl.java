@@ -1,4 +1,4 @@
-package swe4.model.data.timeSlots;
+package swe4.model.dal.timeSlots;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +10,7 @@ public class TimeSlotRepoSocketImpl implements TimeSlotRepo {
   private ObservableList<TimeSlot> timeSlots = FXCollections.observableArrayList();
 
   public TimeSlotRepoSocketImpl() {
-    //TODO
+    updateTimeSlots();
   }
 
   @Override

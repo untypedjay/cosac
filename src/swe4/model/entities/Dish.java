@@ -3,11 +3,12 @@ package swe4.model.entities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import swe4.model.data.dishes.DishRepo;
+import swe4.model.dal.dishes.DishRepo;
 import swe4.util.PriceUtil;
 import java.io.Serializable;
 
 public class Dish implements Serializable {
+  private static final long serialVersionUID = -287429762969025028L;
   private String name;
   private String section;
   private long priceInCents;
@@ -30,9 +31,9 @@ public class Dish implements Serializable {
     return name;
   }
 
-//  public long getPriceInCents() {
-//    return priceInCents;
-//  }
+  public long getPriceInCents() {
+    return priceInCents;
+  }
 
   public String getPrice() {
     return PriceUtil.formatPrice(priceInCents);

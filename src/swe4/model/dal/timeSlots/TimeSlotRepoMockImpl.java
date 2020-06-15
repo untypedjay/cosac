@@ -1,4 +1,4 @@
-package swe4.model.data.timeSlots;
+package swe4.model.dal.timeSlots;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

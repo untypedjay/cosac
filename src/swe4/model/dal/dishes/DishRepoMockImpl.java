@@ -1,4 +1,4 @@
-package swe4.model.data.dishes;
+package swe4.model.dal.dishes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,11 +6,17 @@ import swe4.model.entities.Dish;
 
 import java.util.Iterator;
 
-public class DishRepoSocketImpl implements DishRepo {
+public class DishRepoMockImpl implements DishRepo {
   private ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
-  public DishRepoSocketImpl() {
-    // TODO
+  public DishRepoMockImpl() {
+    dishes.setAll(
+      new Dish("Spaghetti Bolognese","Italienische Köstlichkeiten",  640, this),
+      new Dish("Cordon Bleu vom Schwein mit Kartoffel und Reis","Heftig Deftig",  750, this),
+      new Dish("Gebackene Spinatpalatschinke mit Kartoffeln ","Vegetarische Gerichte",  640, this),
+      new Dish("Faschierte Laibchen mit Kartoffelpüree und Gemüse ","Vegetarische Gerichte",  750, this),
+      new Dish("Spaghetti mit Tomatensauce ","Vegetarische Gerichte",  640, this)
+    );
   }
 
   @Override
@@ -47,26 +53,11 @@ public class DishRepoSocketImpl implements DishRepo {
 
   @Override
   public boolean updateDishes() {
-    //TODO
-    return false;
+    return true;
   }
 
   @Override
   public boolean saveDishes() {
-    //TODO
-    return false;
+    return true;
   }
 }
-
-
-
-//
-//  @Override
-//  public void receiveDishes(Object[] dishObjectArray) {
-//    dishes.clear();
-//    for (int i = 0; i < dishObjectArray.length; ++i) {
-//      Dish dish = (Dish) dishObjectArray[i];
-//      dishes.add(new Dish(dish.getName(), dish.getSection(), dish.getPriceInCents(), this));
-//    }
-//    System.out.println("client, received dishes: " + dishes);
-//  }

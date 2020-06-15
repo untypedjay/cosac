@@ -1,4 +1,4 @@
-package swe4.model.data.users;
+package swe4.model.dal.users;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +9,7 @@ public class UserRepoSocketImpl implements UserRepo {
   private ObservableList<User> users = FXCollections.observableArrayList();
 
   public UserRepoSocketImpl() {
-    // TODO
+    updateUsers();
   }
 
   @Override

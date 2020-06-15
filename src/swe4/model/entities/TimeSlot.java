@@ -3,11 +3,12 @@ package swe4.model.entities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import swe4.model.data.timeSlots.TimeSlotRepo;
+import swe4.model.dal.timeSlots.TimeSlotRepo;
 import java.io.Serializable;
 import java.time.LocalTime;
 
 public class TimeSlot implements Serializable {
+  private static final long serialVersionUID = -87331671154138999L;
   private LocalTime startTime;
   private LocalTime endTime;
   private int maximumCustomers;

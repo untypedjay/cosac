@@ -1,4 +1,4 @@
-package swe4.model.data.dishes;
+package swe4.model.dal.dishes;
 
 import javafx.collections.ObservableList;
 import swe4.model.entities.Dish;
