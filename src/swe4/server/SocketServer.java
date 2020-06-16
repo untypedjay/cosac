@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class SocketServer {
   private enum DataType {
     DISH, ORDER, TIMESLOT, USER
   }
@@ -67,6 +67,9 @@ public class Server {
       data = in.readObject();
     } catch (ClassNotFoundException | IOException x) {
       x.printStackTrace();
+    }
+    if (data == null) {
+      data = "";
     }
     return data;
   }
