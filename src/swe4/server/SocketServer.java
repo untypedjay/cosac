@@ -1,14 +1,12 @@
-package swe4;
+package swe4.server;
 
+import swe4.util.ServerUtil;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import static swe4.util.ServerUtil.*;
 
 public class SocketServer {
-  private enum DataType {
-    DISH, ORDER, TIMESLOT, USER
-  }
-
   public static void main(String[] args) {
     try {
       processRequest();
@@ -30,59 +28,23 @@ public class SocketServer {
           System.out.println("server, received request for data");
           try (Socket sender = new Socket("localhost", 5003);
                ObjectOutput out = new ObjectOutputStream(sender.getOutputStream())) {
-            out.writeObject(retrieveData(DataType.USER));
-            out.writeObject(retrieveData(DataType.DISH));
-            out.writeObject(retrieveData(DataType.ORDER));
-            out.writeObject(retrieveData(DataType.TIMESLOT));
+            out.writeObject(retrieveDataFromFile(ServerUtil.DataType.USER));
+            out.writeObject(retrieveDataFromFile(ServerUtil.DataType.DISH));
+            out.writeObject(retrieveDataFromFile(ServerUtil.DataType.ORDER));
+            out.writeObject(retrieveDataFromFile(ServerUtil.DataType.TIMESLOT));
           }
           System.out.println("server, sent data");
         } else if (((Object[]) data)[0].toString().startsWith("user")) {
           System.out.println("server, received data");
-          storeDataInFile((Object[]) data, DataType.USER);
-          storeDataInFile((Object[]) in.readObject(), DataType.DISH);
-          storeDataInFile((Object[]) in.readObject(), DataType.ORDER);
-          storeDataInFile((Object[]) in.readObject(), DataType.TIMESLOT);
+          storeDataInFile((Object[]) data, ServerUtil.DataType.USER);
+          storeDataInFile((Object[]) in.readObject(), ServerUtil.DataType.DISH);
+          storeDataInFile((Object[]) in.readObject(), ServerUtil.DataType.ORDER);
+          storeDataInFile((Object[]) in.readObject(), ServerUtil.DataType.TIMESLOT);
         } else {
           System.out.println("SERVER ERROR: unknown request");
         }
       }
     }
-  }
-
-  private static void storeDataInFile(Object[] data, DataType dataType) {
-    String fileName = determineFileName(dataType);
-    try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream(fileName))) {
-      out.writeObject(data);
-    } catch (IOException x) {
-      x.printStackTrace();
-    }
-    System.out.println("server, written data to file");
-  }
-
-  private static Object retrieveData(DataType dataType) {
-    Object data = null;
-    String fileName = determineFileName(dataType);
-
-    try (ObjectInput in = new ObjectInputStream(new FileInputStream(fileName))) {
-      data = in.readObject();
-    } catch (ClassNotFoundException | IOException x) {
-      x.printStackTrace();
-    }
-    if (data == null) {
-      data = "";
-    }
-    return data;
-  }
-
-  private static String determineFileName(DataType dataType) {
-    String fileName = null;
-    switch (dataType) {
-      case DISH: fileName = "dishes.ser"; break;
-      case ORDER: fileName = "orders.ser"; break;
-      case TIMESLOT: fileName = "timeSlots.ser"; break;
-      case USER: fileName = "users.ser"; break;
-    }
-    return fileName;
   }
 }
 
