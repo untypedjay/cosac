@@ -8,8 +8,8 @@ import java.rmi.Naming;
 import java.util.Iterator;
 
 public class DishRepoRMIImpl implements DishRepo {
-  private ObservableList<Dish> dishes = FXCollections.observableArrayList();
   private static final String SERVER_URL = "rmi://127.0.0.1/RMIServer";
+  private ObservableList<Dish> dishes = FXCollections.observableArrayList();
 
   public DishRepoRMIImpl() {
     updateDishes();
