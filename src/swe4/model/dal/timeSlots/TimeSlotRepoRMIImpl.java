@@ -11,7 +11,6 @@ import java.util.Iterator;
 
 public class TimeSlotRepoRMIImpl implements TimeSlotRepo {
   private static final String SERVER_URL = "rmi://127.0.0.1/RMIServer";
-
   private ObservableList<TimeSlot> timeSlots = FXCollections.observableArrayList();
 
   public TimeSlotRepoRMIImpl() {
