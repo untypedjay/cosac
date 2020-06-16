@@ -2,6 +2,7 @@ package swe4.model.dal.orders;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
 import swe4.server.RMIInterface;
 
@@ -53,13 +54,16 @@ public class OrderRepoRMIImpl implements OrderRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      orders.clear();
+      Object[] rawOrders = server.loadOrders();
+      for (int i = 0; i < rawOrders.length; ++i) {
+        orders.add((Order) rawOrders[i]);
+      }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    orders.clear();
-    orders = server.loadOrders();
-    return true;
   }
 
   @Override
@@ -67,15 +71,15 @@ public class OrderRepoRMIImpl implements OrderRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      Object[] orderData = new Object[getOrders().size()];
+      for (int i = 0; i < orderData.length; ++i) {
+        orderData[i] = getOrders().get(i);
+      }
+      server.saveOrders(orderData);
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    Object[] orderData = new Object[getOrders().size()];
-    for (int i = 0; i < orderData.length; ++i) {
-      orderData[i] = getOrders().get(i);
-    }
-    server.saveOrders(orderData);
-    return true;
   }
 }

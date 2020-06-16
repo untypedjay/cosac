@@ -2,6 +2,7 @@ package swe4.model.dal.timeSlots;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import swe4.model.entities.Dish;
 import swe4.model.entities.TimeSlot;
 import swe4.server.RMIInterface;
 
@@ -55,13 +56,16 @@ public class TimeSlotRepoRMIImpl implements TimeSlotRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      timeSlots.clear();
+      Object[] rawTimeSlots = server.loadTimeSlots();
+      for (int i = 0; i < rawTimeSlots.length; ++i) {
+        timeSlots.add((TimeSlot) rawTimeSlots[i]);
+      }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    timeSlots.clear();
-    timeSlots = server.loadTimeSlots();
-    return true;
   }
 
   @Override
@@ -69,15 +73,15 @@ public class TimeSlotRepoRMIImpl implements TimeSlotRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      Object[] timeSlotData = new Object[getTimeSlots().size()];
+      for (int i = 0; i < timeSlotData.length; ++i) {
+        timeSlotData[i] = getTimeSlots().get(i);
+      }
+      server.saveTimeSlots(timeSlotData);
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    Object[] timeSlotData = new Object[getTimeSlots().size()];
-    for (int i = 0; i < timeSlotData.length; ++i) {
-      timeSlotData[i] = getTimeSlots().get(i);
-    }
-    server.saveTimeSlots(timeSlotData);
-    return true;
   }
 }

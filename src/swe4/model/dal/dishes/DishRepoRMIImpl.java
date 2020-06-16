@@ -7,6 +7,9 @@ import swe4.server.RMIInterface;
 import java.rmi.Naming;
 import java.util.Iterator;
 
+import static swe4.util.ServerUtil.DataType.DISH;
+import static swe4.util.ServerUtil.retrieveDataFromFile;
+
 public class DishRepoRMIImpl implements DishRepo {
   private static final String SERVER_URL = "rmi://127.0.0.1/RMIServer";
   private ObservableList<Dish> dishes = FXCollections.observableArrayList();
@@ -52,13 +55,16 @@ public class DishRepoRMIImpl implements DishRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      dishes.clear();
+      Object[] rawDishes = server.loadDishes();
+      for (int i = 0; i < rawDishes.length; ++i) {
+        dishes.add((Dish) rawDishes[i]);
+      }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    dishes.clear();
-    dishes = server.loadDishes();
-    return true;
   }
 
   @Override
@@ -66,15 +72,15 @@ public class DishRepoRMIImpl implements DishRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      Object[] dishData = new Object[getDishes().size()];
+      for (int i = 0; i < dishData.length; ++i) {
+        dishData[i] = getDishes().get(i);
+      }
+      server.saveDishes(dishData);
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    Object[] dishData = new Object[getDishes().size()];
-    for (int i = 0; i < dishData.length; ++i) {
-      dishData[i] = getDishes().get(i);
-    }
-    server.saveDishes(dishData);
-    return true;
   }
 }

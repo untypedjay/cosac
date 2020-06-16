@@ -1,5 +1,6 @@
 package swe4.server;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
@@ -35,8 +36,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface {
   }
 
   @Override
-  public ObservableList<Dish> loadDishes() {
-    return (ObservableList<Dish>) retrieveDataFromFile(DISH);
+  public Object[] loadDishes() {
+    return retrieveDataFromFile(DISH);
   }
 
   @Override
@@ -51,8 +52,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface {
   }
 
   @Override
-  public ObservableList<Order> loadOrders() {
-    return (ObservableList<Order>) retrieveDataFromFile(ORDER);
+  public Object[] loadOrders() {
+    return retrieveDataFromFile(ORDER);
   }
 
   @Override
@@ -67,8 +68,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface {
   }
 
   @Override
-  public ObservableList<TimeSlot> loadTimeSlots() {
-    return (ObservableList<TimeSlot>) retrieveDataFromFile(TIMESLOT);
+  public Object[] loadTimeSlots() {
+    return retrieveDataFromFile(TIMESLOT);
   }
 
   @Override
@@ -83,8 +84,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface {
   }
 
   @Override
-  public ObservableList<User> loadUsers() {
-    return (ObservableList<User>) retrieveDataFromFile(USER);
+  public Object[] loadUsers() {
+    return retrieveDataFromFile(USER);
   }
 
   @Override

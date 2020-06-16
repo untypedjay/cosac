@@ -1,23 +1,18 @@
 package swe4.server;
 
-import javafx.collections.ObservableList;
-import swe4.model.entities.Dish;
-import swe4.model.entities.Order;
-import swe4.model.entities.TimeSlot;
-import swe4.model.entities.User;
-
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public interface RMIInterface extends Remote {
-  ObservableList<Dish> loadDishes();
-  boolean saveDishes(Object[] dishes);
+  Object[] loadDishes() throws RemoteException;
+  boolean saveDishes(Object[] dishes) throws RemoteException;
 
-  ObservableList<Order> loadOrders();
-  boolean saveOrders(Object[] orders);
+  Object[] loadOrders() throws RemoteException;
+  boolean saveOrders(Object[] orders) throws RemoteException;
 
-  ObservableList<TimeSlot> loadTimeSlots();
-  boolean saveTimeSlots(Object[] timeSlots);
+  Object[] loadTimeSlots() throws RemoteException;
+  boolean saveTimeSlots(Object[] timeSlots) throws RemoteException;
 
-  ObservableList<User> loadUsers();
-  boolean saveUsers(Object[] users);
+  Object[] loadUsers() throws RemoteException;
+  boolean saveUsers(Object[] users) throws RemoteException;
 }

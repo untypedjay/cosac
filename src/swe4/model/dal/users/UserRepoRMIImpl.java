@@ -2,6 +2,7 @@ package swe4.model.dal.users;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import swe4.model.entities.Dish;
 import swe4.model.entities.User;
 import swe4.server.RMIInterface;
 import swe4.util.PasswordUtil;
@@ -63,13 +64,16 @@ public class UserRepoRMIImpl implements UserRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      users.clear();
+      Object[] rawUsers = server.loadUsers();
+      for (int i = 0; i < rawUsers.length; ++i) {
+        users.add((User) rawUsers[i]);
+      }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    users.clear();
-    users = server.loadUsers();
-    return true;
   }
 
   @Override
@@ -77,15 +81,15 @@ public class UserRepoRMIImpl implements UserRepo {
     RMIInterface server;
     try {
       server = (RMIInterface) Naming.lookup(SERVER_URL);
+      Object[] userData = new Object[getUsers().size()];
+      for (int i = 0; i < userData.length; ++i) {
+        userData[i] = getUsers().get(i);
+      }
+      server.saveUsers(userData);
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    Object[] userData = new Object[getUsers().size()];
-    for (int i = 0; i < userData.length; ++i) {
-      userData[i] = getUsers().get(i);
-    }
-    server.saveUsers(userData);
-    return true;
   }
 }
