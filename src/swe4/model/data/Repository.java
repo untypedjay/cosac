@@ -1,22 +1,10 @@
-package swe4.model.dal;
+package swe4.model.data;
 
 import javafx.collections.ObservableList;
-import swe4.model.dal.dishes.DishRepo;
-import swe4.model.dal.dishes.DishRepoMockImpl;
-import swe4.model.dal.dishes.DishRepoRMIImpl;
-import swe4.model.dal.dishes.DishRepoSocketImpl;
-import swe4.model.dal.orders.OrderRepo;
-import swe4.model.dal.orders.OrderRepoMockImpl;
-import swe4.model.dal.orders.OrderRepoRMIImpl;
-import swe4.model.dal.orders.OrderRepoSocketImpl;
-import swe4.model.dal.timeSlots.TimeSlotRepo;
-import swe4.model.dal.timeSlots.TimeSlotRepoMockImpl;
-import swe4.model.dal.timeSlots.TimeSlotRepoRMIImpl;
-import swe4.model.dal.timeSlots.TimeSlotRepoSocketImpl;
-import swe4.model.dal.users.UserRepo;
-import swe4.model.dal.users.UserRepoMockImpl;
-import swe4.model.dal.users.UserRepoRMIImpl;
-import swe4.model.dal.users.UserRepoSocketImpl;
+import swe4.model.data.dishes.*;
+import swe4.model.data.orders.*;
+import swe4.model.data.timeSlots.*;
+import swe4.model.data.users.*;
 import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
 import swe4.model.entities.TimeSlot;
@@ -29,7 +17,8 @@ public class Repository {
   public enum RepoType {
     MOCK,
     SOCKET,
-    RMI
+    RMI,
+    DB
   }
 
   private DishRepo dishRepo = null;
@@ -53,6 +42,11 @@ public class Repository {
       timeSlotRepo = new TimeSlotRepoRMIImpl();
       userRepo = new UserRepoRMIImpl();
       orderRepo = new OrderRepoRMIImpl();
+    } else if (repoType == RepoType.DB) {
+      dishRepo = new DishRepoDbImpl();
+      timeSlotRepo = new TimeSlotRepoDbImpl();
+      userRepo = new UserRepoDbImpl();
+      orderRepo = new OrderRepoDbImpl();
     }
   }
 

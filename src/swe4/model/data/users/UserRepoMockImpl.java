@@ -1,4 +1,4 @@
-package swe4.model.dal.users;
+package swe4.model.data.users;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

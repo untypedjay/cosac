@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import swe4.model.dal.users.UserRepo;
+import swe4.model.data.users.UserRepo;
 import java.io.*;
 
 import static swe4.model.entities.User.Role.ADMIN;

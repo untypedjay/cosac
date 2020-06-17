@@ -1,10 +1,10 @@
-package swe4.model.dal.orders;
+package swe4.model.data.orders;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import swe4.model.dal.dishes.DishRepo;
-import swe4.model.dal.timeSlots.TimeSlotRepo;
-import swe4.model.dal.users.UserRepo;
+import swe4.model.data.dishes.DishRepo;
+import swe4.model.data.timeSlots.TimeSlotRepo;
+import swe4.model.data.users.UserRepo;
 import swe4.model.entities.Order;
 
 import java.util.Iterator;

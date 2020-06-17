@@ -1,8 +1,7 @@
-package swe4.model.dal.orders;
+package swe4.model.data.orders;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
 import swe4.server.RMIInterface;
 

@@ -5,7 +5,8 @@ import javafx.stage.Stage;
 import swe4.views.ViewController;
 import swe4.views.ViewType;
 import java.util.concurrent.TimeUnit;
-import static swe4.model.data.Repository.RepoType.MOCK;
+
+import static swe4.model.data.Repository.RepoType.DB;
 
 public class Client extends Application {
   public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class Client extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    ViewController viewController = new ViewController(primaryStage, MOCK);
+    ViewController viewController = new ViewController(primaryStage, DB);
     viewController.render(ViewType.LOGIN_VIEW, 780, 450);
   }
 }

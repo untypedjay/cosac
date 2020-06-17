@@ -3,7 +3,7 @@ package swe4.model.entities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import swe4.model.dal.timeSlots.TimeSlotRepo;
+import swe4.model.data.timeSlots.TimeSlotRepo;
 import java.io.Serializable;
 import java.time.LocalTime;
 

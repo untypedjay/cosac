@@ -1,21 +1,26 @@
-package swe4.model.dal.timeSlots;
+package swe4.model.data.timeSlots;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import swe4.model.entities.Dish;
 import swe4.model.entities.TimeSlot;
-import swe4.server.RMIInterface;
 
-import java.rmi.Naming;
 import java.time.LocalTime;
 import java.util.Iterator;
 
-public class TimeSlotRepoRMIImpl implements TimeSlotRepo {
-  private static final String SERVER_URL = "rmi://127.0.0.1/RMIServer";
+public class TimeSlotRepoMockImpl implements TimeSlotRepo {
   private ObservableList<TimeSlot> timeSlots = FXCollections.observableArrayList();
 
-  public TimeSlotRepoRMIImpl() {
-    updateTimeSlots();
+  public TimeSlotRepoMockImpl() {
+    timeSlots.setAll(
+      new TimeSlot(LocalTime.of(11, 00), LocalTime.of(11, 30), 10, this),
+      new TimeSlot(LocalTime.of(11, 30), LocalTime.of(12, 00), 15, this),
+      new TimeSlot(LocalTime.of(12, 00), LocalTime.of(12, 30), 15, this),
+      new TimeSlot(LocalTime.of(12, 30), LocalTime.of(13, 00), 15, this),
+      new TimeSlot(LocalTime.of(13, 00), LocalTime.of(13, 30), 15, this),
+      new TimeSlot(LocalTime.of(13, 30), LocalTime.of(14, 00), 15, this),
+      new TimeSlot(LocalTime.of(14, 00), LocalTime.of(14, 30), 15, this),
+      new TimeSlot(LocalTime.of(14, 30), LocalTime.of(15, 00), 10, this)
+    );
   }
 
   @Override
@@ -53,35 +58,11 @@ public class TimeSlotRepoRMIImpl implements TimeSlotRepo {
 
   @Override
   public boolean updateTimeSlots() {
-    RMIInterface server;
-    try {
-      server = (RMIInterface) Naming.lookup(SERVER_URL);
-      timeSlots.clear();
-      Object[] rawTimeSlots = server.loadTimeSlots();
-      for (int i = 0; i < rawTimeSlots.length; ++i) {
-        timeSlots.add((TimeSlot) rawTimeSlots[i]);
-      }
-      return true;
-    } catch (Exception e) {
-      e.printStackTrace();
-      return false;
-    }
+    return true;
   }
 
   @Override
   public boolean saveTimeSlots() {
-    RMIInterface server;
-    try {
-      server = (RMIInterface) Naming.lookup(SERVER_URL);
-      Object[] timeSlotData = new Object[getTimeSlots().size()];
-      for (int i = 0; i < timeSlotData.length; ++i) {
-        timeSlotData[i] = getTimeSlots().get(i);
-      }
-      server.saveTimeSlots(timeSlotData);
-      return true;
-    } catch (Exception e) {
-      e.printStackTrace();
-      return false;
-    }
+    return true;
   }
 }

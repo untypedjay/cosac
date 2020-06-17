@@ -1,4 +1,4 @@
-package swe4.model.dal.dishes;
+package swe4.model.data.dishes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +15,13 @@ public class DishRepoMockImpl implements DishRepo {
       new Dish("Cordon Bleu vom Schwein mit Kartoffel und Reis","Heftig Deftig",  750, this),
       new Dish("Gebackene Spinatpalatschinke mit Kartoffeln ","Vegetarische Gerichte",  640, this),
       new Dish("Faschierte Laibchen mit Kartoffelpüree und Gemüse ","Vegetarische Gerichte",  750, this),
+      new Dish("Berner Würstel mit Pommes", "Klassische Gerichte", 750, this),
+      new Dish("Tortelloni mit Parmesansauce", "Italienische Köstlichkeiten", 640, this),
+      new Dish("Rinderbraten mit Kroketten und Speckbohnen", "Heftig Deftig", 750, this),
+      new Dish("Gemüsecurry mit Reis", "Asiatische Spezialitäten", 640, this),
+      new Dish("Spare Ribs mit Potato Wedges und Gemüse", "Heftig Deftig", 750, this),
+      new Dish("Nudel-Gemüse Auflauf dazu Kräutersauce", "Vegetarische Gerichte", 640, this),
+      new Dish("Gebratener Leberkäse mit Püree, Spiegelei und Gemüse", "Klassische Gerichte", 750, this),
       new Dish("Spaghetti mit Tomatensauce ","Vegetarische Gerichte",  640, this)
     );
   }

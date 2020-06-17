@@ -1,4 +1,4 @@
-package swe4.model.dal.dishes;
+package swe4.model.data.dishes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,9 +6,6 @@ import swe4.model.entities.Dish;
 import swe4.server.RMIInterface;
 import java.rmi.Naming;
 import java.util.Iterator;
-
-import static swe4.util.ServerUtil.DataType.DISH;
-import static swe4.util.ServerUtil.retrieveDataFromFile;
 
 public class DishRepoRMIImpl implements DishRepo {
   private static final String SERVER_URL = "rmi://127.0.0.1/RMIServer";

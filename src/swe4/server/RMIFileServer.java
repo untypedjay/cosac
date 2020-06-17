@@ -1,11 +1,5 @@
 package swe4.server;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import swe4.model.entities.Dish;
-import swe4.model.entities.Order;
-import swe4.model.entities.TimeSlot;
-import swe4.model.entities.User;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -17,16 +11,15 @@ import static swe4.util.ServerUtil.DataType.*;
 import static swe4.util.ServerUtil.retrieveDataFromFile;
 import static swe4.util.ServerUtil.storeDataInFile;
 
-public class RMIServer extends UnicastRemoteObject implements RMIInterface {
-
-  RMIServer() throws RemoteException {
+public class RMIFileServer extends UnicastRemoteObject implements RMIInterface {
+  RMIFileServer() throws RemoteException {
     super();
   }
 
   public static void main(String[] args) {
     try {
       LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-      Naming.rebind("RMIServer", new RMIServer());
+      Naming.rebind("RMIServer", new RMIFileServer());
       System.out.println("server, ready for RMI calls...");
     } catch (RemoteException e) {
       e.printStackTrace();

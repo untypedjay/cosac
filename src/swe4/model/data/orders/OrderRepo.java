@@ -1,4 +1,4 @@
-package swe4.model.dal.orders;
+package swe4.model.data.orders;
 
 import javafx.collections.ObservableList;
 import swe4.model.entities.Order;

@@ -36,6 +36,12 @@ public class AdminView extends BorderPane {
       }
     });
     Button updateButton = new Button("Update");
+    updateButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        repo.update();
+      }
+    });
     Button logoutButton = new Button("Logout");
     logoutButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override

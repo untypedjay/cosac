@@ -3,7 +3,7 @@ package swe4.model.entities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import swe4.model.dal.dishes.DishRepo;
+import swe4.model.data.dishes.DishRepo;
 import swe4.util.PriceUtil;
 import java.io.Serializable;
 
