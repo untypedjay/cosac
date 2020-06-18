@@ -1,0 +1,103 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+CREATE DATABASE IF NOT EXISTS `cosac` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
+USE `cosac`;
+
+CREATE TABLE `dish` (
+  `name` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `priceInCents` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `dish` (`name`, `section`, `priceInCents`) VALUES
+('Spaghetti Bolognese', 'Italienische Köstlichkeiten', 640),
+('Cordon Bleu vom Schwein mit Kartoffel und Reis', 'Heftig Deftig', 750),
+('Gebackene Spinatpalatschinke mit Kartoffeln', 'Vegetarische Gerichte', 640),
+('Faschierte Laibchen mit Kartoffelpüree und Gemüse', 'Vegetarische Gerichte', 750),
+('Berner Würstel mit Pommes', 'Klassische Gerichte', 750),
+('Tortelloni mit Parmesansauce', 'Italienische Köstlichkeiten', 640),
+('Rinderbraten mit Kroketten und Speckbohnen', 'Heftig Deftig', 750),
+('Gemüsecurry mit Reis', 'Asiatische Spezialitäten', 640),
+('Spare Ribs mit Potato Wedges und Gemüse', 'Heftig Deftig', 750),
+('Nudel-Gemüse Auflauf dazu Kräutersauce', 'Vegetarische Gerichte', 640),
+('Gebratener Leberkäse mit Püree, Spiegelei und Gemüse', 'Klassische Gerichte', 750),
+('Spaghetti mit Tomatensauce', 'Vegetarische Gerichte', 640);
+
+CREATE TABLE `timeSlot` (
+  `id` int(11) NOT NULL,
+  `startTime` timestamp NOT NULL,
+  `endTime` timestamp NOT NULL,
+  `maximumCustomers` int(11) NOT NULL,
+  `bookUntil` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `timeSlot` (`id`, `startTime`, `endTime`, `maximumCustomers`, `bookUntil`) VALUES
+(1, '2020-06-16 11:00', '2020-06-16 11:30', 10, '2020-06-16 10:30'),
+(2, '2020-06-16 11:30', '2020-06-16 12:00', 15, '2020-06-16 11:00'),
+(3, '2020-06-16 12:00', '2020-06-16 12:30', 15, '2020-06-16 11:30'),
+(4, '2020-06-16 12:30', '2020-06-16 13:00', 15, '2020-06-16 12:00'),
+(5, '2020-06-16 13:00', '2020-06-16 13:30', 15, '2020-06-16 12:30'),
+(6, '2020-06-16 13:30', '2020-06-16 14:00', 15, '2020-06-16 13:00'),
+(7, '2020-06-16 14:00', '2020-06-16 14:30', 15, '2020-06-16 13:30'),
+(8, '2020-06-16 14:30', '2020-06-16 15:00', 10, '2020-06-16 14:00');
+
+CREATE TABLE `user` (
+  `username` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `passwordHash` char(60) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `locked` boolean NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `user` (`username`, `firstName`, `lastName`, `passwordHash`, `role`, `locked`) VALUES
+('yard', 'Bill', 'Yard', 'A37173015B8D4E0D77B57D504CD9231E', 'ADMIN', false),
+('admin', 'admin', 'admin', '21232F297A57A5A743894A0E4A801FC3', 'ADMIN', false),
+('wasser', 'Claire', 'Waßer', '2EED756F01A081174AE844EE9F42E781', 'CUSTOMER', false),
+('zufall', 'Rainer', 'Zufall', 'C1BFFFA1219F7FA77EAE37AB54112A80', 'CUSTOMER', false),
+('pfahl', 'Martha', 'Pfahl', 'D06732A1BDE331753C31BC6A3856806B', 'CUSTOMER', false),
+('huana', 'Marie', 'Huana', 'F2C27E048F1164FA601A6DE2F792F88D', 'CUSTOMER', false);
+
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL,
+  `customer` varchar(255) NOT NULL,
+  `dish` varchar(255) NOT NULL,
+  `timeSlotId` int(11) NOT NULL,
+  `orderTime` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `order` (`id`, `customer`, `dish`, `timeSlotId`, `orderTime`) VALUES
+(1, 'zufall', 'Spare Ribs mit Potato Wedges und Gemüse', 7, '2020-06-16 08:23'),
+(2, 'admin', 'Cordon Bleu vom Schwein mit Kartoffel und Reis', 5, '2020-06-16 04:42'),
+(3, 'zufall', 'Tortelloni mit Parmesansauce', 3, '2020-06-16 07:59'),
+(4, 'yard', 'Cordon Bleu vom Schwein mit Kartoffel und Reis', 5, '2020-06-16 10:06'),
+(5, 'huana', 'Rinderbraten mit Kroketten und Speckbohnen', 1, '2020-06-16 08:30');
+
+
+ALTER TABLE `dish`
+  ADD PRIMARY KEY (`name`);
+
+ALTER TABLE `timeSlot`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`username`);
+
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer` (`customer`),
+  ADD KEY `dish` (`dish`),
+  ADD KEY `timeSlotId` (`timeSlotId`);
+
+ALTER TABLE `timeSlot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+ALTER TABLE `order`
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`customer`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dish_ibfk_1` FOREIGN KEY (`dish`) REFERENCES `dish` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `timeSlotId_ibfk_1` FOREIGN KEY (`timeSlotId`) REFERENCES `timeSlot` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
