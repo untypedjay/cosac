@@ -1,6 +1,8 @@
 .button {
     -fx-text-fill: #322525;
     -fx-background-color: #79d1f7;
+    -fx-end-margin: 20px;
+    -fx-start-margin: 20px;
 }
 
 .label {
