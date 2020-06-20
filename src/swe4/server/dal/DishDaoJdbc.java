@@ -4,9 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.data.dishes.DishRepoDbImpl;
 import swe4.model.entities.Dish;
-
 import java.sql.*;
-
 import static swe4.server.RMIDatabaseServer.*;
 
 public class DishDaoJdbc implements DishDao {
@@ -42,7 +40,7 @@ public class DishDaoJdbc implements DishDao {
   }
 
   @Override
-  public void close() throws Exception {
+  public void close() {
 
   }
 }

@@ -49,7 +49,7 @@ public class UserDaoJdbc implements UserDao {
   }
 
   @Override
-  public void close() throws Exception {
+  public void close() {
 
   }
 }

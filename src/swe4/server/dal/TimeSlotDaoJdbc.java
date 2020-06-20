@@ -42,7 +42,7 @@ public class TimeSlotDaoJdbc implements TimeSlotDao {
   }
 
   @Override
-  public void close() throws Exception {
+  public void close() {
 
   }
 }
