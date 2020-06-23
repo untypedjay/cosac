@@ -7,6 +7,7 @@ import swe4.views.ViewType;
 import java.util.concurrent.TimeUnit;
 
 import static swe4.model.data.Repository.RepoType.DB;
+import static swe4.model.data.Repository.RepoType.MOCK;
 
 public class Client extends Application {
   public static void main(String[] args) {
@@ -20,7 +21,7 @@ public class Client extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    ViewController viewController = new ViewController(primaryStage, DB);
+    ViewController viewController = new ViewController(primaryStage, MOCK);
     viewController.render(ViewType.LOGIN_VIEW, 780, 450);
   }
 }
