@@ -11,16 +11,17 @@ public class CosaCServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html");
-    PrintWriter out = null;
-    out = response.getWriter();
+    PrintWriter out = response.getWriter();
     out.println("<html>");
-
+    out.println("<body>");
+    out.println("<h1> Hello from the Servlet </h1>");
+    out.println("</body>");
     out.println("</html>");
   }
 
   @Override
   public void destroy() {
-
+    // do nothing
   }
 
   @Override

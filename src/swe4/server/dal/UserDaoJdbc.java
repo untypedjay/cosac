@@ -19,12 +19,18 @@ public class UserDaoJdbc implements UserDao {
 
       try (ResultSet resultSet = statement.executeQuery()) {
         while (resultSet.next()) {
+          User.Role role = null;
+          if (resultSet.getString("role") == "ADMIN") {
+            role = User.Role.ADMIN;
+          } else {
+            role = User.Role.CUSTOMER;
+          }
           users.add(new User(resultSet.getString("firstName"),
             resultSet.getString("lastName"),
             resultSet.getString("username"),
             resultSet.getString("passwordHash"),
             resultSet.getBoolean("locked"),
-            resultSet.getString("role"),
+            role,
             new UserRepoDbImpl()));
         }
       }

@@ -6,6 +6,7 @@ import swe4.model.data.timeSlots.TimeSlotRepoDbImpl;
 import swe4.model.entities.TimeSlot;
 
 import java.sql.*;
+import java.time.LocalTime;
 
 import static swe4.server.RMIDatabaseServer.*;
 
@@ -19,8 +20,8 @@ public class TimeSlotDaoJdbc implements TimeSlotDao {
 
       try (ResultSet resultSet = statement.executeQuery()) {
         while (resultSet.next()) {
-          timeSlots.add(new TimeSlot(resultSet.getString("startTime"),
-            resultSet.getString("endTime"),
+          timeSlots.add(new TimeSlot(LocalTime.parse(resultSet.getString("startTime")),
+            LocalTime.parse(resultSet.getString("endTime")),
             resultSet.getInt("maximumCustomers"), new TimeSlotRepoDbImpl()));
         }
       }
