@@ -2,13 +2,8 @@ package swe4.server.dal;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import swe4.model.entities.Dish;
 import swe4.model.entities.Order;
-import swe4.model.entities.TimeSlot;
-import swe4.model.entities.User;
-
 import java.sql.*;
-
 import static swe4.server.RMIDatabaseServer.*;
 
 public class OrderDaoJdbc implements OrderDao {
@@ -21,9 +16,9 @@ public class OrderDaoJdbc implements OrderDao {
 
       try (ResultSet resultSet = statement.executeQuery()) {
         while (resultSet.next()) {
-//          orders.add(new Order(resultSet.getString("customer"),
-//            resultSet.getString("dish"),
-//            resultSet.getInt("timeSlotId"));
+          orders.add(new Order(resultSet.getString("customer"),
+                               resultSet.getString("dish"),
+                               resultSet.getInt("timeSlotId"));
         }
       }
     }

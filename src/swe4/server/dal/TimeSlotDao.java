@@ -6,5 +6,6 @@ import java.sql.SQLException;
 
 public interface TimeSlotDao extends AutoCloseable {
   ObservableList<TimeSlot> getAll() throws SQLException;
+  TimeSlot get(String startTime) throws SQLException;
   void store(TimeSlot timeSlot) throws SQLException;
 }

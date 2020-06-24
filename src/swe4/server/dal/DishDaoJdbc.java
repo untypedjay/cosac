@@ -27,6 +27,23 @@ public class DishDaoJdbc implements DishDao {
   }
 
   @Override
+  public Dish get(String name) throws SQLException {
+    try (Connection connection = DriverManager.getConnection(CONN, USERNAME, PASSWORD);
+         PreparedStatement statement = connection.prepareStatement("select * from dish where name like ?")) {
+      statement.setObject(0, name);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+          return new Dish(resultSet.getString("name"),
+                          resultSet.getString("section"),
+                          resultSet.getInt("priceInCents"),
+                          new DishRepoDbImpl());
+        }
+      }
+      return null;
+    }
+  }
+
+  @Override
   public void store(Dish dish) throws SQLException {
     try (Connection connection = DriverManager.getConnection(CONN, USERNAME, PASSWORD);
          PreparedStatement statement = connection.prepareStatement("insert into dish (name, section, priceInCents) values (?, ?, ?, ?)",

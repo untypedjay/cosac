@@ -4,10 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swe4.model.data.timeSlots.TimeSlotRepoDbImpl;
 import swe4.model.entities.TimeSlot;
-
 import java.sql.*;
 import java.time.LocalTime;
-
 import static swe4.server.RMIDatabaseServer.*;
 
 public class TimeSlotDaoJdbc implements TimeSlotDao {
@@ -27,6 +25,23 @@ public class TimeSlotDaoJdbc implements TimeSlotDao {
       }
     }
     return timeSlots;
+  }
+
+  @Override
+  public TimeSlot get(String startTime) throws SQLException {
+    try (Connection connection = DriverManager.getConnection(CONN, USERNAME, PASSWORD);
+         PreparedStatement statement = connection.prepareStatement("select * from timeSlot where startTime like ?")) {
+      statement.setObject(0, startTime);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+          return new TimeSlot(resultSet.getTime("startTime"),
+                             resultSet.getTime("endTime"),
+                             resultSet.getInt("maximumCustomers"),
+                              new TimeSlotRepoDbImpl()));
+        }
+      }
+      return null;
+    }
   }
 
   @Override
