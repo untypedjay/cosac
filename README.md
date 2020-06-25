@@ -8,7 +8,7 @@ A tool for canteens to receive orders from their customers in a specific time fr
 * overview orders
 
 ## Functionality User
-* order menu for this day
+* order menu for this day for a specific time frame
 
 ## Assignment 8
 * menu for saving and opening
